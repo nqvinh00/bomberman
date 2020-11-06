@@ -18,18 +18,28 @@ public class Layer extends Entity {
 
     @Override
     public void update() {
-
+        this.clearRemovedEntity();
+        this.getLastEntity().update();
     }
 
     @Override
     public void render(Screen screen) {
-
+        this.getLastEntity().render(screen);
     }
 
     @Override
-    public boolean collide(Entity e) {
-        return false;
+    public boolean isCollided(Entity e) {
+        return getLastEntity().isCollided(e);
     }
 
+    public Entity getLastEntity() {
+        return this.entities.get(entities.size() - 1);
+    }
 
+    public void clearRemovedEntity() {
+        Entity last = this.getLastEntity();
+        if (last.isRemoved()) {
+            entities.remove(last);
+        }
+    }
 }

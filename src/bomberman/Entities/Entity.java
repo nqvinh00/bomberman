@@ -1,5 +1,6 @@
 package bomberman.Entities;
 
+import bomberman.Game;
 import bomberman.Graphics.Render;
 import bomberman.Graphics.Screen;
 import bomberman.Graphics.Sprite;
@@ -27,7 +28,7 @@ public abstract class Entity implements Render{
         return sprite;
     }
 
-    public abstract boolean collide(Entity e);
+    public abstract boolean isCollided(Entity e);
 
     public double getX() {
         return x;
@@ -37,11 +38,11 @@ public abstract class Entity implements Render{
         return y;
     }
 
-//    public int getXTile() {
-//        return Coordinates.pixelToTile(_x + _sprite.SIZE / 2);
-//    }
+    public int getBoardSpriteX() {
+        return (int) ((x + sprite.SIZE / 2) / Game.boardsprite_size);
+    }
 
-//    public int getYTile() {
-//        return Coordinates.pixelToTile(_y - _sprite.SIZE / 2);
-//    }
+    public int getBoardSpriteY() {
+        return (int) ((y - sprite.SIZE / 2) / Game.boardsprite_size);
+    }
 }
