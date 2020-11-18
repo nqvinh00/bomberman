@@ -5,6 +5,8 @@ import bomberman.Entities.Entity;
 import bomberman.GameBoard;
 import bomberman.Graphics.Sprite;
 
+import java.io.IOException;
+
 public class Portal extends BoardSprite {
     protected GameBoard gameBoard;
 
@@ -14,7 +16,7 @@ public class Portal extends BoardSprite {
     }
 
     @Override
-    public boolean isCollided(Entity e) {
+    public boolean isCollided(Entity e) throws IOException {
         if (e instanceof Bomber) {
             if (!this.gameBoard.isNoEnemies()) {
                 return false;

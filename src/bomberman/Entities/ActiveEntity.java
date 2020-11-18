@@ -1,10 +1,10 @@
 package bomberman.Entities;
 
-public abstract class MovableEntity extends Entity {
+public abstract class ActiveEntity extends Entity {
     protected int move_step = 0;
     protected final int MAX = 5000;
 
-    protected void move() {
+    protected void activate() {
         if (move_step < MAX) {
             move_step++;
         } else {

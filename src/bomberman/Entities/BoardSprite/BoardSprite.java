@@ -5,6 +5,8 @@ import bomberman.Game;
 import bomberman.Graphics.Screen;
 import bomberman.Graphics.Sprite;
 
+import java.io.IOException;
+
 public abstract class BoardSprite extends Entity {
 
     public BoardSprite(int x, int y, Sprite sprite) {
@@ -14,7 +16,7 @@ public abstract class BoardSprite extends Entity {
     }
 
     @Override
-    public boolean isCollided(Entity e) {
+    public boolean isCollided(Entity e) throws IOException {
         return false;
     }
 

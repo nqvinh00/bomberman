@@ -1,18 +1,20 @@
 package bomberman.Graphics;
 
+import bomberman.Entities.Character.Bomber;
 import bomberman.Entities.Entity;
 import bomberman.Game;
 import bomberman.GameBoard;
 
 import java.awt.*;
+import java.util.Arrays;
 
 public class Screen {
     protected int width;
     protected int height;
     public int[] pixels;
     private int defaultColor = 0xffff00ff; //RGBA
-    private static int deltax = 0;
-    private static int deltay = 0;
+    public static int deltax = 0;
+    public static int deltay = 0;
 
     public Screen(int width, int height) {
         this.width = width;
@@ -21,9 +23,7 @@ public class Screen {
     }
 
     public void clear() {
-        for (int i = 0; i < pixels.length; i++) {
-            pixels[i] = 0;
-        }
+        Arrays.fill(pixels, 0);
     }
 
     public void renderEntity(int x, int y, Entity entity) {
@@ -80,18 +80,24 @@ public class Screen {
         }
     }
 
-    public void setDelta(int x0, int y0) {
-        this.deltax = x0;
-        this.deltay = y0;
+    public static void setDelta(int x0, int y0) {
+        deltax = x0;
+        deltay = y0;
     }
 
-//    public int calculateDeltax() {
-//
-//    }
-//
-//    public int calculateDetaly() {
-//
-//    }
+    public static int calculateDelta(Bomber bomber, GameBoard board) {
+        if (bomber == null) {
+            return 0;
+        }
+        int temp = deltax;
+        double x = bomber.getX() / 16;
+        int first = board.getWidth() / 4;
+        int last = board.getHeight() - first;
+        if (x > first + 0.5 && x < last - 0.5) {
+            temp = (int) bomber.getX() - Game.width / 2;
+        }
+        return temp;
+    }
 
     public int[] positionToDraw(int width, int height, String s, FontMetrics fontMetrics) {
         int[] result = new int[2];
@@ -126,7 +132,7 @@ public class Screen {
         graphics.setColor(Color.WHITE);
         FontMetrics fontMetrics = graphics.getFontMetrics();
         int[] result = positionToDraw(this.width * Game.scale_factor, this.height * Game.scale_factor, "Level: " + level, fontMetrics);
-        graphics.drawString("Level" + level, result[0], result[1]);
+        graphics.drawString("Level " + level, result[0], result[1]);
     }
 
     public void drawGamePausing(Graphics graphic) {

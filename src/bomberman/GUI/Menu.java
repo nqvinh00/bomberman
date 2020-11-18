@@ -1,14 +1,11 @@
 package bomberman.GUI;
 
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
-import java.security.Key;
+import java.io.IOException;
 import javax.swing.*;
-
-import bomberman.GUI.GameFrame;
-import bomberman.GameBoard;
 
 public class Menu extends JMenuBar {
     public GameFrame frame;
@@ -21,31 +18,31 @@ public class Menu extends JMenuBar {
 
         // Game menu
         JMenuItem newGame = new JMenuItem("New game");
-        newGame.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
+        newGame.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_MASK));
         newGame.addActionListener(new GameMenuListener(frame));
         this.gameMenu.add(newGame);
         JMenuItem exit = new JMenuItem("Exit");
-        exit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W, ActionEvent.CTRL_MASK));
+        exit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W, InputEvent.CTRL_MASK));
         exit.addActionListener(new GameMenuListener(frame));
         this.gameMenu.add(exit);
 
         // Option menu
         JMenuItem pause = new JMenuItem("Pause");
-        pause.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, ActionEvent.CTRL_MASK));
+        pause.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.CTRL_MASK));
         pause.addActionListener(new OptionMenuListener(frame));
         this.option.add(pause);
-        JMenuItem unpause = new JMenuItem("Unpause");
-        unpause.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_U, ActionEvent.CTRL_MASK));
+        JMenuItem unpause = new JMenuItem("Resume");
+        unpause.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_U, InputEvent.CTRL_MASK));
         unpause.addActionListener(new OptionMenuListener(frame));
         this.option.add(unpause);
 
         // Help
         JMenuItem keyboard = new JMenuItem("Keyboard control");
-        keyboard.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_H, ActionEvent.CTRL_MASK));
+        keyboard.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_H, InputEvent.CTRL_MASK));
         keyboard.addActionListener(new HelpMenuListener(frame));
         this.help.add(keyboard);
         JMenuItem info = new JMenuItem("About");
-        info.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, ActionEvent.CTRL_MASK));
+        info.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, InputEvent.CTRL_MASK));
         info.addActionListener(new HelpMenuListener(frame));
         this.help.add(info);
     }
@@ -60,7 +57,11 @@ public class Menu extends JMenuBar {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
             if (actionEvent.getActionCommand().equals("New Game")) {
-                frame.newGame();
+                try {
+                    frame.newGame();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
 
             if (actionEvent.getActionCommand().equals("Exit")) {
@@ -79,11 +80,11 @@ public class Menu extends JMenuBar {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
             if (actionEvent.getActionCommand().equals("Pause")) {
-
+                this.frame.pauseGame();
             }
 
             if (actionEvent.getActionCommand().equals("Unpause")) {
-
+                this.frame.resumeGame();
             }
         }
     }
@@ -98,11 +99,11 @@ public class Menu extends JMenuBar {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
             if (actionEvent.getActionCommand().equals("Keyboard")) {
-
+                JOptionPane.showMessageDialog(null, "Up, Down, Right, Left arrow button to move bomber.\nSpace button to place bomb.");
             }
 
             if (actionEvent.getActionCommand().equals("About")) {
-
+                JOptionPane.showMessageDialog(null, "Nguyen Quang Vinh - UET\nK63K1 - 18021429.");
             }
         }
     }

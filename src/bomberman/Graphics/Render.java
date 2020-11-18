@@ -4,10 +4,11 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.io.IOException;
 
 public interface Render {
 
-    public void update();
+    void update() throws IOException;
 
-    public void render(Screen screen);
+    void render(Screen screen) throws IOException;
 }

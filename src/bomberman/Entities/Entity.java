@@ -5,30 +5,33 @@ import bomberman.Graphics.Render;
 import bomberman.Graphics.Screen;
 import bomberman.Graphics.Sprite;
 
+import java.io.IOException;
+
 public abstract class Entity implements Render{
-    protected double x, y;
+    protected double x;
+    protected double y;
     protected boolean removed = false;
     protected Sprite sprite;
 
     @Override
-    public abstract void update();
+    public abstract void update() throws IOException;
 
     @Override
-    public abstract void render(Screen screen);
+    public abstract void render(Screen screen) throws IOException;
 
     public void remove() {
-        removed = true;
+        this.removed = true;
     }
 
     public boolean isRemoved() {
-        return removed;
+        return this.removed;
     }
 
     public Sprite getSprite() {
-        return sprite;
+        return this.sprite;
     }
 
-    public abstract boolean isCollided(Entity e);
+    public abstract boolean isCollided(Entity e) throws IOException;
 
     public double getX() {
         return x;
