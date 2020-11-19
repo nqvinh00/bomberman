@@ -93,7 +93,7 @@ public class Level {
                 Screen.setDelta(0, 0);
                 this.gameBoard.addEntity(position, new Grass(x, y, Sprite.grass));
                 break;
-            default:
+            default: // grass for default
                 this.gameBoard.addEntity(position, new Grass(x, y, Sprite.grass) );
                 break;
 

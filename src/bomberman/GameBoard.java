@@ -14,7 +14,6 @@ import bomberman.Entities.Character.Character;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class GameBoard implements Render {
     protected Level level;
@@ -51,7 +50,7 @@ public class GameBoard implements Render {
         this.whenGameEnd();
         for (int i = 0; i < characters.size(); i++) {
             Character character = characters.get(i);
-            if (((Entity)character).isRemoved()) {
+            if (character.isRemoved()) {
                 this.characters.remove(i);
             }
         }
@@ -441,5 +440,13 @@ public class GameBoard implements Render {
 
     public int getHeight() {
         return this.level.getHeight();
+    }
+
+    public void setTime(int time) {
+        this.time = time;
+    }
+
+    public void setPoint(int point) {
+        this.point = point;
     }
 }

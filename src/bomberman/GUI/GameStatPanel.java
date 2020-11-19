@@ -1,10 +1,7 @@
 package bomberman.GUI;
 
 import javax.swing.*;
-
 import bomberman.Game;
-import bomberman.GameBoard;
-
 import java.awt.*;
 
 public class GameStatPanel extends JPanel {
@@ -20,18 +17,17 @@ public class GameStatPanel extends JPanel {
 
         this.points = new JLabel("Points: " + game.getGameBoard().getPoint());
         this.points.setForeground(Color.WHITE);
-        this.time.setHorizontalAlignment(JLabel.CENTER);
+        this.points.setHorizontalAlignment(JLabel.CENTER);
 
         this.lives = new JLabel("Lives: " + game.getGameBoard().getLive());
-        this.points.setForeground(Color.WHITE);
-        this.points.setHorizontalAlignment(JLabel.CENTER);
+        this.lives.setForeground(Color.WHITE);
+        this.lives.setHorizontalAlignment(JLabel.CENTER);
 
         this.add(this.time);
         this.add(this.lives);
         this.add(this.points);
-        this.setBackground(Color.BLACK);
+        this.setBackground(Color.GRAY);
         this.setPreferredSize(new Dimension(0, 40));
-
     }
 
     public void setTime(int time) {

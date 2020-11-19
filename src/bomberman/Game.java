@@ -54,7 +54,7 @@ public class Game extends Canvas {
         }
 
         this.screen.clear();
-        this.gameBoard.render(screen);
+        this.gameBoard.render(this.screen);
 
         System.arraycopy(screen.pixels, 0, pixels, 0, pixels.length);
 
@@ -124,7 +124,9 @@ public class Game extends Canvas {
                 if (this.paused) {
                     this.gameFrame.setTime(this.gameBoard.getTime());
                 } else {
-                    this.gameFrame.setTime(this.gameBoard.getTime() - 1);
+                    int gameTime = this.gameBoard.getTime() - 1;
+                    this.gameFrame.setTime(gameTime);
+                    this.gameBoard.setTime(gameTime);
                 }
                 this.gameFrame.setPoints(this.gameBoard.getPoint());
                 this.gameFrame.setLives(Game.this.gameBoard.getLive());

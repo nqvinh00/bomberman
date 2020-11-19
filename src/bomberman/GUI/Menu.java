@@ -45,6 +45,10 @@ public class Menu extends JMenuBar {
         info.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, InputEvent.CTRL_MASK));
         info.addActionListener(new HelpMenuListener(frame));
         this.help.add(info);
+
+        this.add(this.gameMenu);
+        this.add(this.option);
+        this.add(this.help);
     }
 
     static class GameMenuListener implements ActionListener {

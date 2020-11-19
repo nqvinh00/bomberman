@@ -92,7 +92,7 @@ public class Screen {
         int temp = deltax;
         double x = bomber.getX() / 16;
         int first = board.getWidth() / 4;
-        int last = board.getHeight() - first;
+        int last = board.getWidth() - first;
         if (x > first + 0.5 && x < last - 0.5) {
             temp = (int) bomber.getX() - Game.width / 2;
         }

@@ -1,30 +1,24 @@
 package bomberman.GUI;
 
 import bomberman.Game;
-import bomberman.GameBoard;
-
 import javax.swing.*;
-
 import java.awt.*;
 import java.io.IOException;
 
 public class GameFrame extends JFrame {
+    private Game game;
     private GamePanel gamePanel;
     private JPanel container;
     private GameStatPanel gameStatPanel;
-    private Game game;
-    private GameBoard gameBoard;
 
     public GameFrame() throws IOException {
         this.setJMenuBar(new Menu(this));
         this.container = new JPanel(new BorderLayout());
         this.gamePanel = new GamePanel(this);
-        this.game = this.gamePanel.getGame();
-        this.gameStatPanel = new GameStatPanel(this.game);
+        this.gameStatPanel = new GameStatPanel(this.gamePanel.getGame());
         this.container.add(gameStatPanel, BorderLayout.PAGE_START);
         this.container.add(gamePanel, BorderLayout.PAGE_END);
-        this.gameBoard = this.game.getGameBoard();
-        this.container.setVisible(true);
+        this.game = this.gamePanel.getGame();
         this.add(container);
         this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -35,19 +29,19 @@ public class GameFrame extends JFrame {
     }
 
     public void newGame() throws IOException {
-        this.gameBoard.newGame();
+        this.game.getGameBoard().newGame();
     }
 
     public void changeLevel(int level) throws IOException {
-        this.gameBoard.changeLevel(level);
+        this.game.getGameBoard().changeLevel(level);
     }
 
     public void pauseGame() {
-        this.gameBoard.pauseGame();
+        this.game.getGameBoard().pauseGame();
     }
 
     public void resumeGame() {
-        this.gameBoard.resumeGame();
+        this.game.getGameBoard().resumeGame();
     }
 
     public void setTime(int time) {

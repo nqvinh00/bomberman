@@ -18,7 +18,7 @@ public abstract class Item extends BoardSprite {
         return this.level;
     }
 
-    public boolean isActive() {
+    public boolean isActived() {
         return this.active;
     }
 }

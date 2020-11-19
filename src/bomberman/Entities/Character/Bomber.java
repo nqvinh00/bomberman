@@ -93,7 +93,7 @@ public class Bomber extends Character {
         }
         this.alive = false;
         this.board.addLive(-1);
-
+        this.clearUsedItems();
     }
 
     public void calculateDelta() {
@@ -225,7 +225,7 @@ public class Bomber extends Character {
     }
 
     public void clearUsedItems() {
-        items.removeIf(item -> !item.isActive());
+        items.removeIf(item -> !item.isActived());
     }
 
     public void clearAllItems() {

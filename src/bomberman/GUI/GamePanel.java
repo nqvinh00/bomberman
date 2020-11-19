@@ -13,6 +13,7 @@ public class GamePanel extends JPanel {
         this.setPreferredSize(new Dimension(Game.width * Game.scale_factor, Game.height * Game.scale_factor));
         this.game = new Game(frame);
         this.add(game);
+        this.game.setVisible(true);
         this.setVisible(true);
         this.setFocusable(true);
     }
