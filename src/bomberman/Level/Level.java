@@ -4,6 +4,7 @@ import bomberman.Entities.BoardSprite.Brick;
 import bomberman.Entities.BoardSprite.Grass;
 import bomberman.Entities.BoardSprite.Portal;
 import bomberman.Entities.BoardSprite.Wall;
+import bomberman.Entities.Character.Balloom;
 import bomberman.Entities.Character.Bomber;
 import bomberman.Entities.Item.BombRangeIncrement;
 import bomberman.Entities.Item.MoreBombs;
@@ -85,14 +86,20 @@ public class Level {
                 this.gameBoard.addEntity(position, layer);
                 break;
             case 'x': // portal under brick
-                layer = new Layer(x, y, new Grass(x, y, Sprite.grass), new Portal(x, y, Sprite.portal, this.gameBoard), new Brick(x, y, Sprite.brick));
+                layer = new Layer(x, y, new Grass(x, y, Sprite.grass), new Portal(x, y, Sprite.portal, this.gameBoard),
+                        new Brick(x, y, Sprite.brick));
                 this.gameBoard.addEntity(position, layer);
                 break;
             case 'p': // bomber
-                this.gameBoard.addCharacter(new Bomber(x * Game.boardsprite_size, y * Game.boardsprite_size + Game.boardsprite_size, this.gameBoard));
+                this.gameBoard.addCharacter(new Bomber(x * Game.boardsprite_size,
+                        y * Game.boardsprite_size + Game.boardsprite_size, this.gameBoard));
                 Screen.setDelta(0, 0);
                 this.gameBoard.addEntity(position, new Grass(x, y, Sprite.grass));
                 break;
+            case '1': // balloom
+                this.gameBoard.addCharacter(new Balloom(x * Game.boardsprite_size,
+                        y * Game.boardsprite_size + Game.boardsprite_size, this.gameBoard));
+                this.gameBoard.addEntity(position, new Grass(x, y, Sprite.grass));
             default: // grass for default
                 this.gameBoard.addEntity(position, new Grass(x, y, Sprite.grass) );
                 break;

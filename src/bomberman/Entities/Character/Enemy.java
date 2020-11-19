@@ -105,7 +105,7 @@ public abstract class Enemy extends Character {
         int x_ = 0;
         int y_ = 0;
         if (this.moveStep <= 0) {
-            this.direction = new Random().nextInt(4);
+            this.direction = this.findDirection();
             this.moveStep = this.maxStep;
         }
 
@@ -128,8 +128,8 @@ public abstract class Enemy extends Character {
 
     @Override
     public boolean canMoveTo(double posX, double posY) throws IOException {
-        double x_ = posX;
-        double y_ = posY - 16;
+        double x_ = this.x;
+        double y_ = this.y - 16;
 
         switch (this.direction) {
             case 0:
@@ -150,10 +150,15 @@ public abstract class Enemy extends Character {
                 break;
         }
 
+        System.out.println((int) (x_ / Game.boardsprite_size) + (int) posX + (int) (y_ / Game.boardsprite_size) + (int) posY);
         Entity entity = this.board.getEntity((int) (x_ / Game.boardsprite_size) + (int) posX,
                 (int) (y_ / Game.boardsprite_size) + (int) posY, this);
         return entity.isCollided(this);
     }
 
     public abstract void selectSprite();
+
+    public abstract int findDirection(); // use for low level creeps
+
+    public abstract int findBomber(); // maybe use for high level creeps
 }
