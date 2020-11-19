@@ -25,9 +25,13 @@ public class BombDirection extends Entity {
     }
 
     @Override
-    public void update() {
-        for (BombExplosion bombExplosion: explosions) {
-            bombExplosion.isCollided(this.board.getCharacterAtPos(bombExplosion.getX(), bombExplosion.getY()));
+    public void update() throws IOException {
+        for (BombExplosion bombExplosion: this.explosions) {
+            Character character = this.board.getCharacterAtPos(bombExplosion.getX(), bombExplosion.getY());
+            if (character != null) {
+                character.setProcess(true);
+                bombExplosion.isCollided(character);
+            }
         }
     }
 
@@ -40,7 +44,7 @@ public class BombDirection extends Entity {
 
     @Override
     public boolean isCollided(Entity e) {
-        return true;
+        return false;
     }
 
     /**
@@ -93,7 +97,7 @@ public class BombDirection extends Entity {
     /**
      * create explosions for the bomb.
      */
-    public void createExplosions() {
+    public void createExplosions() throws IOException {
         boolean isLastExplosion;
         int x_ = (int) this.x;
         int y_ = (int) this.y;

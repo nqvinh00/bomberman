@@ -12,6 +12,7 @@ public abstract class Entity implements Render{
     protected double y;
     protected boolean removed = false;
     protected Sprite sprite;
+    private boolean process = false;
 
     @Override
     public abstract void update() throws IOException;
@@ -47,5 +48,14 @@ public abstract class Entity implements Render{
 
     public int getBoardSpriteY() {
         return (int) ((y - sprite.SIZE / 2) / Game.boardsprite_size);
+    }
+
+
+    public void setProcess(boolean process) {
+        this.process = process;
+    }
+
+    public boolean isProcess() {
+        return this.process;
     }
 }

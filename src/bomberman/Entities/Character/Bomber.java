@@ -3,7 +3,6 @@ package bomberman.Entities.Character;
 import bomberman.Entities.Bomb.Bomb;
 import bomberman.Control.Input;
 import bomberman.Entities.Bomb.BombDirection;
-import bomberman.Entities.Bomb.BombExplosion;
 import bomberman.Entities.Entity;
 import bomberman.Entities.Item.Item;
 import bomberman.Game;
@@ -42,6 +41,7 @@ public class Bomber extends Character {
         this.activate();
         this.moveStep();
         this.whenPlaceBomb();
+
     }
 
     @Override
@@ -102,7 +102,7 @@ public class Bomber extends Character {
     }
 
     @Override
-    protected void afterDead() throws IOException {
+    public void afterDead() throws IOException {
         if (this.timeDead > 0) {
             --this.timeDead;
         } else {
@@ -233,4 +233,5 @@ public class Bomber extends Character {
             items.remove(item);
         }
     }
+
 }

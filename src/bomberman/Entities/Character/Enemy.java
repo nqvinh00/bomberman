@@ -6,9 +6,9 @@ import bomberman.Game;
 import bomberman.GameBoard;
 import bomberman.Graphics.Screen;
 import bomberman.Graphics.Sprite;
+import sun.nio.cs.ext.MacThai;
 
 import java.io.IOException;
-import java.util.Random;
 
 public abstract class Enemy extends Character {
     protected int pointKill;
@@ -35,7 +35,13 @@ public abstract class Enemy extends Character {
             afterDead();
             return;
         }
-
+        Bomber bomber = this.board.getBomber();
+        if (bomber != null) {
+            if (Math.abs((int) bomber.getX() - (int) this.x) <= 10 && Math.abs((int) bomber.getY() - (int) this.y) <= 10) {
+                bomber.setProcess(true);
+                this.isCollided(bomber);
+            }
+        }
         this.moveStep();
     }
 
@@ -55,7 +61,7 @@ public abstract class Enemy extends Character {
     }
 
     @Override
-    public boolean isCollided(Entity e) throws IOException {
+    public boolean isCollided(Entity e) {
         if (e instanceof BombExplosion) {
             dead();
             return false;
@@ -79,7 +85,7 @@ public abstract class Enemy extends Character {
     }
 
     @Override
-    protected void afterDead() throws IOException {
+    public void afterDead() {
         if (this.timeDead > 0) {
             this.timeDead--;
         } else {
@@ -150,7 +156,6 @@ public abstract class Enemy extends Character {
                 break;
         }
 
-        System.out.println((int) (x_ / Game.boardsprite_size) + (int) posX + (int) (y_ / Game.boardsprite_size) + (int) posY);
         Entity entity = this.board.getEntity((int) (x_ / Game.boardsprite_size) + (int) posX,
                 (int) (y_ / Game.boardsprite_size) + (int) posY, this);
         return entity.isCollided(this);
@@ -161,4 +166,5 @@ public abstract class Enemy extends Character {
     public abstract int findDirection(); // use for low level creeps
 
     public abstract int findBomber(); // maybe use for high level creeps
+
 }

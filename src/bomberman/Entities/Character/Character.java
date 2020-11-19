@@ -25,9 +25,9 @@ public abstract class Character extends ActiveEntity {
     @Override
     public abstract void render(Screen screen) throws IOException;
 
-    public abstract void dead();
+    public abstract void dead() throws IOException;
 
-    protected abstract void afterDead() throws IOException;
+    public abstract void afterDead() throws IOException;
 
     protected abstract void move(double deltaX, double deltaY) throws IOException;
 
@@ -46,4 +46,5 @@ public abstract class Character extends ActiveEntity {
     public int getDirection() {
         return this.direction;
     }
+
 }

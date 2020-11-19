@@ -107,7 +107,7 @@ public class Bomb extends ActiveEntity {
         return this.exploded;
     }
 
-    public void updateExplosion() {
+    public void updateExplosion() throws IOException {
         for (BombDirection direction : this.directions) {
             direction.update();
         }

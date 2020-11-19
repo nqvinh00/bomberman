@@ -53,6 +53,10 @@ public class GameBoard implements Render {
             if (character.isRemoved()) {
                 this.characters.remove(i);
             }
+
+            if (!character.isAlive()) {
+                character.afterDead();
+            }
         }
 
         for (int i = 0; i < this.bombs.size(); i++) {
@@ -238,7 +242,9 @@ public class GameBoard implements Render {
         }
 
         for (Character c: characters) {
-            c.update();
+            if (!c.isProcess()) {
+                c.update();
+            }
         }
     }
 
@@ -448,5 +454,9 @@ public class GameBoard implements Render {
 
     public void setPoint(int point) {
         this.point = point;
+    }
+
+    public ArrayList<Character> getCharacters() {
+        return this.characters;
     }
 }

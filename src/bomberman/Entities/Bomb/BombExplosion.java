@@ -1,10 +1,11 @@
 package bomberman.Entities.Bomb;
 
 import bomberman.Entities.Entity;
-import bomberman.GameBoard;
 import bomberman.Graphics.Screen;
 import bomberman.Graphics.Sprite;
 import bomberman.Entities.Character.Character;
+
+import java.io.IOException;
 
 public class BombExplosion extends Entity {
 
@@ -54,11 +55,10 @@ public class BombExplosion extends Entity {
     }
 
     @Override
-    public boolean isCollided(Entity e) {
+    public boolean isCollided(Entity e) throws IOException {
         if (e instanceof Character) {
             ((Character) e).dead();
-            return true;
         }
-        return false;
+        return true;
     }
 }
