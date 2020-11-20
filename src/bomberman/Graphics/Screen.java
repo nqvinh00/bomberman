@@ -94,7 +94,7 @@ public class Screen {
         int first = board.getWidth() / 4;
         int last = board.getWidth() - first;
         if (x > first + 0.5 && x < last - 0.5) {
-            temp = (int) bomber.getX() - Game.width / 2;
+            temp = (int) bomber.getX() - (Game.width / 2);
         }
         return temp;
     }

@@ -23,7 +23,6 @@ public class GameBoard implements Render {
     public Entity[] entities;
     public ArrayList<Character> characters = new ArrayList<Character>();
     protected ArrayList<Bomb> bombs = new ArrayList<Bomb>();
-//    private ArrayList<Message>;
 //    1: game over 2: level change 3: paused
     private int screenNum = -1;
     private int time = Game.time;
@@ -50,12 +49,13 @@ public class GameBoard implements Render {
         this.whenGameEnd();
         for (int i = 0; i < characters.size(); i++) {
             Character character = characters.get(i);
-            if (character.isRemoved()) {
-                this.characters.remove(i);
-            }
 
             if (!character.isAlive()) {
                 character.afterDead();
+            }
+
+            if (character.isRemoved()) {
+                this.characters.remove(i);
             }
         }
 
@@ -80,7 +80,7 @@ public class GameBoard implements Render {
         int y1 = (Screen.deltay + screen.getHeight()) / Game.boardsprite_size;
         for (int iy = y0 ; iy < y1; iy++) {
             for (int ix = x0; ix < x1; ix++) {
-                this.entities[ix + iy * this.level.getWidth()].render(screen);
+                if (ix + iy * this.level.getWidth() != 403) this.entities[ix + iy * this.level.getWidth()].render(screen);
             }
         }
         this.renderBombs(screen);

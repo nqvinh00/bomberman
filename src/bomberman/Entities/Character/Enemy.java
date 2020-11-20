@@ -6,7 +6,6 @@ import bomberman.Game;
 import bomberman.GameBoard;
 import bomberman.Graphics.Screen;
 import bomberman.Graphics.Sprite;
-import sun.nio.cs.ext.MacThai;
 
 import java.io.IOException;
 

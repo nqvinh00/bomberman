@@ -49,37 +49,32 @@ public class Bomber extends Character {
         this.calculateDelta();
         if (this.alive) {
             switch (this.direction) {
-                case 0:
+                case 0 -> {
                     this.sprite = Sprite.player_up;
                     if (this.moving) {
                         this.sprite = Sprite.movingSprite(Sprite.player_up_1, Sprite.player_up_2, this.move_step, 20);
                     }
-                    break;
-
-                case 1:
+                }
+                case 1 -> {
                     this.sprite = Sprite.player_right;
                     if (this.moving) {
                         this.sprite = Sprite.movingSprite(Sprite.player_right_1, Sprite.player_right_2, this.move_step, 20);
                     }
-                    break;
-
-                case 2:
+                }
+                case 2 -> {
                     this.sprite = Sprite.player_down;
                     if (this.moving) {
                         this.sprite = Sprite.movingSprite(Sprite.player_down_1, Sprite.player_down_2, this.move_step, 20);
                     }
-                    break;
-
-                case 3:
+                }
+                case 3 -> {
                     this.sprite = Sprite.player_left;
                     if (this.moving) {
                         this.sprite = Sprite.movingSprite(Sprite.player_left_1, Sprite.player_left_2, this.move_step, 20);
                     }
-                    break;
-                default:
-                    this.sprite = Sprite.player_right;
-                    break;
                 }
+                default -> this.sprite = Sprite.player_right;
+            }
         } else {
             this.sprite = Sprite.player_dead1;
         }

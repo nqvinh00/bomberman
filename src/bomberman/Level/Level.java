@@ -6,6 +6,7 @@ import bomberman.Entities.BoardSprite.Portal;
 import bomberman.Entities.BoardSprite.Wall;
 import bomberman.Entities.Character.Balloom;
 import bomberman.Entities.Character.Bomber;
+import bomberman.Entities.Character.Oneal;
 import bomberman.Entities.Item.BombRangeIncrement;
 import bomberman.Entities.Item.MoreBombs;
 import bomberman.Entities.Item.SpeedUp;
@@ -57,53 +58,64 @@ public class Level {
         int position = x + y * this.width;
         Layer layer;
         switch (c) {
-            case '#': // Wall
-                this.gameBoard.addEntity(position, new Wall(x, y, Sprite.wall));
-                break;
-            case 'b': // powerup_bomb item under brick
+// Wall
+            case '#' -> this.gameBoard.addEntity(position, new Wall(x, y, Sprite.wall));
+// powerup_bomb item under brick
+            case 'b' -> {
                 layer = new Layer(x, y, new Grass(x, y, Sprite.grass), new Brick(x, y, Sprite.brick));
                 if (!this.gameBoard.isItemUsed(x, y, this.level)) {
                     layer.addEntityBeforeLast(new MoreBombs(x, y, Sprite.powerup_bombs, this.level));
                 }
                 this.gameBoard.addEntity(position, layer);
-                break;
-            case 'f': // powerup_frame item under brick
+            }
+// powerup_frame item under brick
+            case 'f' -> {
                 layer = new Layer(x, y, new Grass(x, y, Sprite.grass), new Brick(x, y, Sprite.brick));
                 if (!this.gameBoard.isItemUsed(x, y, this.level)) {
                     layer.addEntityBeforeLast(new BombRangeIncrement(x, y, Sprite.powerup_flames, this.level));
                 }
                 this.gameBoard.addEntity(position, layer);
-                break;
-            case 's': // powerup_speed item under brick
+            }
+// powerup_speed item under brick
+            case 's' -> {
                 layer = new Layer(x, y, new Grass(x, y, Sprite.grass), new Brick(x, y, Sprite.brick));
                 if (!this.gameBoard.isItemUsed(x, y, this.level)) {
                     layer.addEntityBeforeLast(new SpeedUp(x, y, Sprite.powerup_speed, this.level));
                 }
                 this.gameBoard.addEntity(position, layer);
-                break;
-            case '*': // brick
+            }
+// brick
+            case '*' -> {
                 layer = new Layer(x, y, new Grass(x, y, Sprite.grass), new Brick(x, y, Sprite.brick));
                 this.gameBoard.addEntity(position, layer);
-                break;
-            case 'x': // portal under brick
+            }
+// portal under brick
+            case 'x' -> {
                 layer = new Layer(x, y, new Grass(x, y, Sprite.grass), new Portal(x, y, Sprite.portal, this.gameBoard),
                         new Brick(x, y, Sprite.brick));
                 this.gameBoard.addEntity(position, layer);
-                break;
-            case 'p': // bomber
+            }
+// bomber
+            case 'p' -> {
                 this.gameBoard.addCharacter(new Bomber(x * Game.boardsprite_size,
                         y * Game.boardsprite_size + Game.boardsprite_size, this.gameBoard));
                 Screen.setDelta(0, 0);
                 this.gameBoard.addEntity(position, new Grass(x, y, Sprite.grass));
-                break;
-            case '1': // balloom
+            }
+// balloom
+            case '1' -> {
                 this.gameBoard.addCharacter(new Balloom(x * Game.boardsprite_size,
                         y * Game.boardsprite_size + Game.boardsprite_size, this.gameBoard));
                 this.gameBoard.addEntity(position, new Grass(x, y, Sprite.grass));
-            default: // grass for default
-                this.gameBoard.addEntity(position, new Grass(x, y, Sprite.grass) );
-                break;
-
+            }
+// oneal
+            case '2' -> {
+                this.gameBoard.addCharacter(new Oneal(x * Game.boardsprite_size,
+                        y * Game.boardsprite_size + Game.boardsprite_size, this.gameBoard));
+                this.gameBoard.addEntity(position, new Grass(x, y, Sprite.grass));
+            }
+// grass for default
+            default -> this.gameBoard.addEntity(position, new Grass(x, y, Sprite.grass));
         }
     }
 
