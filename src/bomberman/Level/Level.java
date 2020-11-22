@@ -4,9 +4,7 @@ import bomberman.Entities.BoardSprite.Brick;
 import bomberman.Entities.BoardSprite.Grass;
 import bomberman.Entities.BoardSprite.Portal;
 import bomberman.Entities.BoardSprite.Wall;
-import bomberman.Entities.Character.Balloom;
-import bomberman.Entities.Character.Bomber;
-import bomberman.Entities.Character.Oneal;
+import bomberman.Entities.Character.*;
 import bomberman.Entities.Item.BombRangeIncrement;
 import bomberman.Entities.Item.MoreBombs;
 import bomberman.Entities.Item.SpeedUp;
@@ -58,9 +56,9 @@ public class Level {
         int position = x + y * this.width;
         Layer layer;
         switch (c) {
-// Wall
+            // Wall
             case '#' -> this.gameBoard.addEntity(position, new Wall(x, y, Sprite.wall));
-// powerup_bomb item under brick
+            // powerup_bomb item under brick
             case 'b' -> {
                 layer = new Layer(x, y, new Grass(x, y, Sprite.grass), new Brick(x, y, Sprite.brick));
                 if (!this.gameBoard.isItemUsed(x, y, this.level)) {
@@ -68,7 +66,7 @@ public class Level {
                 }
                 this.gameBoard.addEntity(position, layer);
             }
-// powerup_frame item under brick
+            // powerup_frame item under brick
             case 'f' -> {
                 layer = new Layer(x, y, new Grass(x, y, Sprite.grass), new Brick(x, y, Sprite.brick));
                 if (!this.gameBoard.isItemUsed(x, y, this.level)) {
@@ -76,7 +74,7 @@ public class Level {
                 }
                 this.gameBoard.addEntity(position, layer);
             }
-// powerup_speed item under brick
+            // powerup_speed item under brick
             case 's' -> {
                 layer = new Layer(x, y, new Grass(x, y, Sprite.grass), new Brick(x, y, Sprite.brick));
                 if (!this.gameBoard.isItemUsed(x, y, this.level)) {
@@ -84,37 +82,56 @@ public class Level {
                 }
                 this.gameBoard.addEntity(position, layer);
             }
-// brick
+            // brick
             case '*' -> {
                 layer = new Layer(x, y, new Grass(x, y, Sprite.grass), new Brick(x, y, Sprite.brick));
                 this.gameBoard.addEntity(position, layer);
             }
-// portal under brick
+            // portal under brick
             case 'x' -> {
                 layer = new Layer(x, y, new Grass(x, y, Sprite.grass), new Portal(x, y, Sprite.portal, this.gameBoard),
                         new Brick(x, y, Sprite.brick));
                 this.gameBoard.addEntity(position, layer);
             }
-// bomber
+            // bomber
             case 'p' -> {
                 this.gameBoard.addCharacter(new Bomber(x * Game.boardsprite_size,
                         y * Game.boardsprite_size + Game.boardsprite_size, this.gameBoard));
                 Screen.setDelta(0, 0);
                 this.gameBoard.addEntity(position, new Grass(x, y, Sprite.grass));
             }
-// balloom
+            // balloom
             case '1' -> {
                 this.gameBoard.addCharacter(new Balloom(x * Game.boardsprite_size,
                         y * Game.boardsprite_size + Game.boardsprite_size, this.gameBoard));
                 this.gameBoard.addEntity(position, new Grass(x, y, Sprite.grass));
             }
-// oneal
+            // oneal
             case '2' -> {
                 this.gameBoard.addCharacter(new Oneal(x * Game.boardsprite_size,
                         y * Game.boardsprite_size + Game.boardsprite_size, this.gameBoard));
                 this.gameBoard.addEntity(position, new Grass(x, y, Sprite.grass));
             }
-// grass for default
+            //doll
+            case '3' -> {
+                this.gameBoard.addCharacter(new Doll(x * Game.boardsprite_size,
+                        y * Game.boardsprite_size + Game.boardsprite_size, this.gameBoard));
+                this.gameBoard.addEntity(position, new Grass(x, y, Sprite.grass));
+            }
+            // Minvo
+            case '4' -> {
+                this.gameBoard.addCharacter(new Minvo(x * Game.boardsprite_size,
+                        y * Game.boardsprite_size + Game.boardsprite_size, this.gameBoard));
+                this.gameBoard.addEntity(position, new Grass(x, y, Sprite.grass));
+            }
+            // Kondoria
+            case '5' -> {
+                this.gameBoard.addCharacter(new Kondoria(x * Game.boardsprite_size,
+                        y * Game.boardsprite_size + Game.boardsprite_size, this.gameBoard));
+                this.gameBoard.addEntity(position, new Grass(x, y, Sprite.grass));
+            }
+
+            // grass for default
             default -> this.gameBoard.addEntity(position, new Grass(x, y, Sprite.grass));
         }
     }

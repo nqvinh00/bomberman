@@ -115,10 +115,10 @@ public abstract class Enemy extends Character {
         }
 
         switch (this.direction) {
-            case 0: y_--; break;
-            case 1: x_++; break;
-            case 2: y_++; break;
-            case 3: x_--; break;
+            case 0 -> y_--;
+            case 1 -> x_++;
+            case 2 -> y_++;
+            case 3 -> x_--;
         }
 
         if (canMoveTo(x_, y_)) {
@@ -137,22 +137,22 @@ public abstract class Enemy extends Character {
         double y_ = this.y - 16;
 
         switch (this.direction) {
-            case 0:
+            case 0 -> {
                 x_ += this.sprite.getSize() / 2;
                 y_ += this.sprite.getSize() - 1;
-                break;
-            case 1:
+            }
+            case 1 -> {
                 x_++;
                 y_ += this.sprite.getSize() / 2;
-                break;
-            case 2:
+            }
+            case 2 -> {
                 x_ += this.sprite.getSize() / 2;
                 y_++;
-                break;
-            case 3:
+            }
+            case 3 -> {
                 x_ += this.sprite.getSize() - 1;
                 y_ += this.sprite.getSize() / 2;
-                break;
+            }
         }
 
         Entity entity = this.board.getEntity((int) (x_ / Game.boardsprite_size) + (int) posX,

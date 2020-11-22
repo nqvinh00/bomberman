@@ -38,6 +38,7 @@ public class Bomber extends Character {
         } else {
             bombPlaceDelay++;
         }
+
         this.activate();
         this.moveStep();
         this.whenPlaceBomb();

@@ -3,6 +3,7 @@ package bomberman;
 import bomberman.Entities.Bomb.Bomb;
 import bomberman.Entities.Bomb.BombExplosion;
 import bomberman.Entities.Character.Bomber;
+import bomberman.Entities.Character.Enemy;
 import bomberman.Entities.Entity;
 import bomberman.Entities.Item.Item;
 import bomberman.Graphics.Render;
@@ -65,6 +66,31 @@ public class GameBoard implements Render {
                 this.bombs.remove(i);
                 Game.bomb_number++;
             }
+        }
+
+        if (this.keyboard_input.f2) {
+            this.resetGameSettings();
+            this.changeLevel(2);
+        }
+
+        if (this.keyboard_input.f1) {
+            this.resetGameSettings();
+            this.changeLevel(1);
+        }
+
+        if (this.keyboard_input.f3) {
+            this.resetGameSettings();
+            this.changeLevel(3);
+        }
+
+        if (this.keyboard_input.f4) {
+            this.resetGameSettings();
+            this.changeLevel(4);
+        }
+
+        if (this.keyboard_input.f5) {
+            this.resetGameSettings();
+            this.changeLevel(5);
         }
     }
 

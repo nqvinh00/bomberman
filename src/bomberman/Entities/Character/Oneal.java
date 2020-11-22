@@ -4,6 +4,8 @@ import bomberman.Game;
 import bomberman.GameBoard;
 import bomberman.Graphics.Sprite;
 
+import java.util.Random;
+
 public class Oneal extends Enemy {
 
     public Oneal(int x, int y, GameBoard board) {
@@ -37,7 +39,7 @@ public class Oneal extends Enemy {
 
     @Override
     public int findDirection() {
-        return this.board.getBomber().getDirection();
+        return new Random().nextInt(4);
     }
 
     @Override

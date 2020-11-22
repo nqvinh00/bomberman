@@ -47,4 +47,7 @@ public abstract class Character extends ActiveEntity {
         return this.direction;
     }
 
+    public void killItSelf() {
+        this.alive = false;
+    }
 }

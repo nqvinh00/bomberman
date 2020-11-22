@@ -17,15 +17,10 @@ public class Balloom extends Enemy {
     @Override
     public void selectSprite() {
         switch (this.direction) {
-            case 0: case 2:
-            case 1:
-                this.sprite = Sprite.movingSprite(Sprite.balloom_right1, Sprite.balloom_right2, Sprite.balloom_right3,
-                        this.move_step, 60);
-                break;
-            case 3:
-                this.sprite = Sprite.movingSprite(Sprite.balloom_left1, Sprite.balloom_left2, Sprite.balloom_left3,
-                        this.move_step, 60);
-                break;
+            case 0, 2, 1 -> this.sprite = Sprite.movingSprite(Sprite.balloom_right1, Sprite.balloom_right2, Sprite.balloom_right3,
+                    this.move_step, 60);
+            case 3 -> this.sprite = Sprite.movingSprite(Sprite.balloom_left1, Sprite.balloom_left2, Sprite.balloom_left3,
+                    this.move_step, 60);
         }
     }
 

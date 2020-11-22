@@ -1,6 +1,7 @@
 package bomberman.Entities.BoardSprite;
 
 import bomberman.Entities.Bomb.BombDirection;
+import bomberman.Entities.Character.Kondoria;
 import bomberman.Entities.Entity;
 import bomberman.Game;
 import bomberman.Graphics.Screen;
@@ -45,9 +46,9 @@ public class Brick extends BoardSprite {
             this.destroyed = true;
         }
 
-//        if (e instanceof Kondoria) {
-//            return true;
-//        }
+        if (e instanceof Kondoria) {
+            return true;
+        }
 
         return false;
     }
