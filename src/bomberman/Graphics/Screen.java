@@ -114,13 +114,13 @@ public class Screen {
         Font font = new Font("Hack", Font.PLAIN, 60);
         graphics.setFont(font);
         graphics.setColor(Color.WHITE);
-        int[] result = positionToDraw(this.width * Game.scale_factor, this.height * Game.scale_factor,"Game Over", fontMetrics);
+        int[] result = positionToDraw(this.width * Game.scale_factor, this.height * Game.scale_factor, "Game over", fontMetrics);
         graphics.drawString("Game Over", result[0], result[1]);
 
         font = new Font("Hack", Font.PLAIN, 30);
         graphics.setFont(font);
         graphics.setColor(Color.YELLOW);
-        result = positionToDraw(this.width * Game.scale_factor, this.height + Game.scale_factor * Game.boardsprite_size * 2, "Points: " + points, fontMetrics);
+        result = positionToDraw(this.width * Game.scale_factor, this.height * Game.scale_factor, "Points: " + points, fontMetrics);
         graphics.drawString("Points: " + points, result[0], result[1]);
     }
 

@@ -24,7 +24,7 @@ public class Game extends Canvas {
     public static int height = 208;
     public static int scale_factor = 3;
     public static String window_title = "Bomberman";
-    public static int screen_delay = 3;
+    public static int screen_delay = 2;
     public static int bomb_number = 1;
     public static int bomb_range = 1;
     public static double player_speed = 1.0;
@@ -32,7 +32,7 @@ public class Game extends Canvas {
     public static int point = 0;
     public static int live = 3;
     private boolean running = false;
-    private boolean paused = true;
+    private boolean paused = false;
     private BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
     private int[] pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
 

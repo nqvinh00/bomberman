@@ -14,7 +14,7 @@ public class SpeedUp extends Item {
     @Override
     public void setValue() {
         this.active = true;
-        Game.player_speed += 0.1;
+        Game.player_speed += 0.5;
     }
 
     @Override

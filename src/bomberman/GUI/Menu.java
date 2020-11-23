@@ -60,7 +60,7 @@ public class Menu extends JMenuBar {
 
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
-            if (actionEvent.getActionCommand().equals("New Game")) {
+            if (actionEvent.getActionCommand().equals("New game")) {
                 try {
                     frame.newGame();
                 } catch (IOException e) {
@@ -87,7 +87,7 @@ public class Menu extends JMenuBar {
                 this.frame.pauseGame();
             }
 
-            if (actionEvent.getActionCommand().equals("Unpause")) {
+            if (actionEvent.getActionCommand().equals("Resume")) {
                 this.frame.resumeGame();
             }
         }
@@ -102,7 +102,7 @@ public class Menu extends JMenuBar {
 
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
-            if (actionEvent.getActionCommand().equals("Keyboard")) {
+            if (actionEvent.getActionCommand().equals("Keyboard control")) {
                 JOptionPane.showMessageDialog(null, "Up, Down, Right, Left arrow button to move bomber.\nSpace button to place bomb.");
             }
 

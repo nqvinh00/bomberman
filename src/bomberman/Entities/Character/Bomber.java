@@ -33,10 +33,10 @@ public class Bomber extends Character {
             return;
         }
 
-        if (bombPlaceDelay > 5000) {
-            bombPlaceDelay = 0;
+        if (this.bombPlaceDelay < -5000) {
+            this.bombPlaceDelay = 0;
         } else {
-            bombPlaceDelay++;
+            this.bombPlaceDelay--;
         }
 
         this.activate();
@@ -203,6 +203,7 @@ public class Bomber extends Character {
         if (!item.isRemoved()) {
             items.add(item);
             item.setValue();
+            System.out.println(Game.bomb_number);
         }
     }
 
@@ -211,7 +212,7 @@ public class Bomber extends Character {
     }
 
     public void whenPlaceBomb() {
-        if (this.keyboard_input.space && Game.bomb_number > 0 && this.bombPlaceDelay > 0) {
+        if (this.keyboard_input.space && Game.bomb_number > 0 && this.bombPlaceDelay < 0) {
             int x_ = (int) ((this.x + this.sprite.getSize() / 2) / Game.boardsprite_size);
             int y_ = (int) ((this.y + this.sprite.getSize() / 2 - this.sprite.getSize()) / Game.boardsprite_size);
             this.placeBomb(x_, y_);
@@ -224,10 +225,14 @@ public class Bomber extends Character {
         items.removeIf(item -> !item.isActived());
     }
 
-    public void clearAllItems() {
+    public ArrayList<Item> usedItems() {
+        ArrayList<Item> used = new ArrayList<Item>();
         for (Item item: items) {
-            items.remove(item);
+            if (!item.isActived()) {
+                used.add(item);
+            }
         }
+        return used;
     }
 
 }

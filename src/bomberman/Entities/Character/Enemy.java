@@ -8,6 +8,7 @@ import bomberman.Graphics.Screen;
 import bomberman.Graphics.Sprite;
 
 import java.io.IOException;
+import java.util.Random;
 
 public abstract class Enemy extends Character {
     protected int pointKill;
@@ -162,8 +163,31 @@ public abstract class Enemy extends Character {
 
     public abstract void selectSprite();
 
-    public abstract int findDirection(); // use for low level creeps
+    /**
+     * use for low level enemy.
+     * @return random(1, 4)
+     */
+    public int findDirection() {
+        return new Random().nextInt(4);
+    }
 
-    public abstract int findBomber(); // maybe use for high level creeps
+    public abstract int findBomber();
 
+    public int bomberColDirection() {
+        if (this.board.getBomber().getBoardSpriteX() < this.getBoardSpriteX()) {
+            return 3;
+        } else if (this.board.getBomber().getBoardSpriteX() > this.getBoardSpriteX()) {
+            return 1;
+        }
+        return -1;
+    }
+
+    public int bomberRowDirection() {
+        if (this.board.getBomber().getBoardSpriteY() < this.getBoardSpriteY()) {
+            return 0;
+        } else if (this.board.getBomber().getBoardSpriteY() > this.getBoardSpriteY()) {
+            return 2;
+        }
+        return -1;
+    }
 }

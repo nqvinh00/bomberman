@@ -23,11 +23,6 @@ public class Kondoria extends Enemy {
     }
 
     @Override
-    public int findDirection() {
-        return 0;
-    }
-
-    @Override
     public int findBomber() {
         return 0;
     }

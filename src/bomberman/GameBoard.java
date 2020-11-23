@@ -29,8 +29,6 @@ public class GameBoard implements Render {
     private int time = Game.time;
     private int point = Game.point;
     private int live = Game.live;
-    private int screen_delay = Game.screen_delay;
-
 
     public GameBoard(Game gameplay, Input keyboard_input, Screen screen) throws IOException {
         this.gameplay = gameplay;
@@ -68,30 +66,7 @@ public class GameBoard implements Render {
             }
         }
 
-        if (this.keyboard_input.f2) {
-            this.resetGameSettings();
-            this.changeLevel(2);
-        }
-
-        if (this.keyboard_input.f1) {
-            this.resetGameSettings();
-            this.changeLevel(1);
-        }
-
-        if (this.keyboard_input.f3) {
-            this.resetGameSettings();
-            this.changeLevel(3);
-        }
-
-        if (this.keyboard_input.f4) {
-            this.resetGameSettings();
-            this.changeLevel(4);
-        }
-
-        if (this.keyboard_input.f5) {
-            this.resetGameSettings();
-            this.changeLevel(5);
-        }
+        this.gameMasterMode();
     }
 
     @Override
@@ -133,7 +108,7 @@ public class GameBoard implements Render {
     public void changeLevel(int level_) throws IOException {
         this.time = Game.time;
         this.screenNum = 2;
-        this.screen_delay = Game.screen_delay;
+        Game.screen_delay = 2;
         this.gameplay.setPaused(true);
         this.characters.clear();
         this.bombs.clear();
@@ -160,7 +135,7 @@ public class GameBoard implements Render {
             this.screen.drawGameEnding(graphics, this.point);
         } else if (this.screenNum == 2) {
             this.screen.drawLevelChanging(graphics, this.level.getLevel());
-        } else if (this.screenNum ==3 ) {
+        } else if (this.screenNum == 3) {
             this.screen.drawGamePausing(graphics);
         }
     }
@@ -180,7 +155,7 @@ public class GameBoard implements Render {
      */
     public void gameEnd() {
         this.screenNum = 1;
-        this.screen_delay = 3;
+        Game.screen_delay = 2;
         this.gameplay.setPaused(true);
     }
 
@@ -198,7 +173,7 @@ public class GameBoard implements Render {
      * pause game.
      */
     public void pauseGame() {
-        this.screen_delay = 3;
+        Game.screen_delay = 2;
         if (this.screenNum <= 0) {
             this.screenNum = 3;
         }
@@ -213,7 +188,7 @@ public class GameBoard implements Render {
      * unpause game.
      */
     public void resumeGame() {
-        this.screen_delay = 3;
+        Game.screen_delay = 2;
         this.screenNum = -1;
         this.gameplay.run();
     }
@@ -231,6 +206,10 @@ public class GameBoard implements Render {
      * @throws IOException if file level.txt not found
      */
     public void nextLevel() throws IOException {
+        if (this.level.getLevel() == 5) {
+            this.gameEnd();
+            return;
+        }
         this.changeLevel(this.level.getLevel() + 1);
     }
 
@@ -303,7 +282,7 @@ public class GameBoard implements Render {
     public boolean isNoEnemies() {
         int n = 0;
         for (Character character : this.characters) {
-            if (!(character instanceof Bomber)) {
+            if (character instanceof Enemy) {
                 n++;
             }
         }
@@ -450,6 +429,41 @@ public class GameBoard implements Render {
         return entity;
     }
 
+    private void gameMasterMode() throws IOException {
+        if (this.keyboard_input.f2) {
+            this.resetGameSettings();
+            this.changeLevel(2);
+        }
+
+        if (this.keyboard_input.f1) {
+            this.resetGameSettings();
+            this.changeLevel(1);
+        }
+
+        if (this.keyboard_input.f3) {
+            this.resetGameSettings();
+            this.changeLevel(3);
+        }
+
+        if (this.keyboard_input.f4) {
+            this.resetGameSettings();
+            this.changeLevel(4);
+        }
+
+        if (this.keyboard_input.f5) {
+            this.resetGameSettings();
+            this.changeLevel(5);
+        }
+
+        if (this.keyboard_input.esc) {
+            for (Character character: this.characters) {
+                if (character instanceof Enemy) {
+                    character.dead();
+                }
+            }
+        }
+    }
+
     public int getScreenNum() {
         return this.screenNum;
     }
@@ -484,5 +498,9 @@ public class GameBoard implements Render {
 
     public ArrayList<Character> getCharacters() {
         return this.characters;
+    }
+
+    public Game getGame() {
+        return this.gameplay;
     }
 }

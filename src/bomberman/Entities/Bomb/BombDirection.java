@@ -29,7 +29,6 @@ public class BombDirection extends Entity {
         for (BombExplosion bombExplosion: this.explosions) {
             Character character = this.board.getCharacterAtPos(bombExplosion.getX(), bombExplosion.getY());
             if (character != null) {
-                character.setProcess(true);
                 bombExplosion.isCollided(character);
             }
         }
@@ -73,10 +72,10 @@ public class BombDirection extends Entity {
         int y_ = (int) y;
         while (range_ < this.bombRange) {
             switch (this.direction) {
-                case 0: y_--; break;
-                case 1: x_++; break;
-                case 2: y_++; break;
-                case 3: x_--; break;
+                case 0 -> y_--;
+                case 1 -> x_++;
+                case 2 -> y_++;
+                case 3 -> x_--;
             }
 
             Entity entity = this.board.getEntity(x_, y_, null);
@@ -104,10 +103,10 @@ public class BombDirection extends Entity {
         for (int i = 0; i < this.explosions.length; i++) {
             isLastExplosion = i == this.explosions.length - 1;
             switch (this.direction) {
-                case 0: y_--; break;
-                case 1: x_++; break;
-                case 2: y_++; break;
-                case 3: x_--; break;
+                case 0 -> y_--;
+                case 1 -> x_++;
+                case 2 -> y_++;
+                case 3 -> x_--;
             }
             this.explosions[i] = new BombExplosion(x_, y_, this.direction, isLastExplosion);
         }

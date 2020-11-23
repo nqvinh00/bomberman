@@ -89,6 +89,7 @@ public class Bomb extends ActiveEntity {
         this.exploded = true;
         Character character = this.board.getCharacterAtPos(x, y);
         if (character != null) {
+            character.setProcess(true);
             character.dead();
         }
         this.directions = new BombDirection[4];

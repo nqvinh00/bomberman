@@ -21,7 +21,7 @@ public abstract class BoardSprite extends Entity {
     }
 
     @Override
-    public void update() {
+    public void update() throws IOException {
 
     }
 

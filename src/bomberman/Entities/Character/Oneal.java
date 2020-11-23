@@ -9,9 +9,9 @@ import java.util.Random;
 public class Oneal extends Enemy {
 
     public Oneal(int x, int y, GameBoard board) {
-        super(x, y, board, 150, Game.player_speed, Sprite.oneal_dead);
+        super(x, y, board, 150, 2 * 1.0 / 3, Sprite.oneal_dead);
         this.sprite = Sprite.oneal_right1;
-        this.direction = this.findDirection();
+        this.direction = this.findBomber();
     }
 
     @Override
@@ -38,12 +38,25 @@ public class Oneal extends Enemy {
     }
 
     @Override
-    public int findDirection() {
-        return new Random().nextInt(4);
-    }
-
-    @Override
     public int findBomber() {
-        return 0;
+        if (this.board.getBomber() == null) {
+            this.findDirection();
+        }
+
+        if (new Random().nextInt(2) == 1) {
+            int row = this.bomberRowDirection();
+            if (row != -1) {
+                return row;
+            } else {
+                return this.bomberColDirection();
+            }
+        } else {
+            int col = this.bomberColDirection();
+            if (col != -1) {
+                return col;
+            } else {
+                return this.bomberRowDirection();
+            }
+        }
     }
 }

@@ -57,6 +57,7 @@ public class BombExplosion extends Entity {
     @Override
     public boolean isCollided(Entity e) throws IOException {
         if (e instanceof Character) {
+            e.setProcess(true);
             ((Character) e).dead();
         }
         return true;
