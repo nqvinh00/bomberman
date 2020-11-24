@@ -10,9 +10,9 @@ import javax.swing.*;
 
 public class Menu extends JMenuBar {
     public GameFrame frame;
-    private JMenu gameMenu = new JMenu("Game");
-    private JMenu option = new JMenu("Options");
-    private JMenu help = new JMenu("Help");
+    private final JMenu gameMenu = new JMenu("Game");
+    private final JMenu option = new JMenu("Options");
+    private final JMenu help = new JMenu("Help");
 
     public Menu(GameFrame frame) {
         this.frame = frame;
@@ -53,7 +53,7 @@ public class Menu extends JMenuBar {
     }
 
     static class GameMenuListener implements ActionListener {
-        private GameFrame frame;
+        private final GameFrame frame;
 
         public GameMenuListener(GameFrame frame) {
             this.frame = frame;
@@ -76,7 +76,7 @@ public class Menu extends JMenuBar {
     }
 
     static class OptionMenuListener implements ActionListener {
-        private GameFrame frame;
+        private final GameFrame frame;
 
         public OptionMenuListener(GameFrame frame) {
             this.frame = frame;
@@ -95,7 +95,7 @@ public class Menu extends JMenuBar {
     }
 
     static class HelpMenuListener implements ActionListener {
-        private GameFrame frame;
+        private final GameFrame frame;
 
         public HelpMenuListener(GameFrame frame) {
             this.frame = frame;

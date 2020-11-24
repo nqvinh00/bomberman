@@ -18,11 +18,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Bomber extends Character {
-    private ArrayList<Bomb> bombs;
+    private final ArrayList<Bomb> bombs;
     protected Input keyboard_input;
     protected int bombPlaceDelay = 0;
     public static ArrayList<Item> items = new ArrayList<Item>();
-    private Clip clip = AudioSystem.getClip();
+    private final Clip clip = AudioSystem.getClip();
 
     public Bomber(int x, int y, GameBoard board) throws LineUnavailableException {
         super(x, y, board);

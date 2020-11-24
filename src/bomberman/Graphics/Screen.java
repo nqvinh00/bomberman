@@ -18,7 +18,7 @@ public class Screen {
     protected int width;
     protected int height;
     public int[] pixels;
-    private int defaultColor = 0xffff00ff; //RGBA
+    private final int defaultColor = 0xffff00ff; //RGBA
     public static int deltax = 0;
     public static int deltay = 0;
 
@@ -28,10 +28,19 @@ public class Screen {
         this.pixels = new int[width * height];
     }
 
+    /**
+     * fill all pixels with 0 to clear map
+     */
     public void clear() {
         Arrays.fill(pixels, 0);
     }
 
+    /**
+     * render entity.
+     * @param x pos
+     * @param y pos
+     * @param entity to render
+     */
     public void renderEntity(int x, int y, Entity entity) {
         x -= deltax;
         y -= deltay;
@@ -58,6 +67,13 @@ public class Screen {
         }
     }
 
+    /**
+     * render entity with a sprite like grass, portal, item.
+     * @param x pos
+     * @param y pos
+     * @param entity to render
+     * @param sprite under
+     */
     public void renderEntityUnderSprite(int x, int y, Entity entity, Sprite sprite) {
         x -= deltax;
         y -= deltay;
@@ -86,11 +102,22 @@ public class Screen {
         }
     }
 
+    /**
+     * delta setter.
+     * @param x0 delta
+     * @param y0 delta
+     */
     public static void setDelta(int x0, int y0) {
         deltax = x0;
         deltay = y0;
     }
 
+    /**
+     * calculate delta with bomber pos and board size
+     * @param bomber character
+     * @param board game
+     * @return delta
+     */
     public static int calculateDelta(Bomber bomber, GameBoard board) {
         if (bomber == null) {
             return 0;
@@ -105,6 +132,14 @@ public class Screen {
         return temp;
     }
 
+    /**
+     * draw game ending screen.
+     * @param graphics param
+     * @param points of bomber
+     * @throws LineUnavailableException if error occurs
+     * @throws IOException if error occurs
+     * @throws UnsupportedAudioFileException if error occurs
+     */
     public void drawGameEnding(Graphics graphics, int points) throws LineUnavailableException, IOException, UnsupportedAudioFileException {
         Clip clip = AudioSystem.getClip();
         clip.open(AudioSystem.getAudioInputStream(new File("res/audio/game_over.wav")));
@@ -124,7 +159,7 @@ public class Screen {
         clip.stop();
     }
 
-    public void drawLevelChanging(Graphics graphics, int level) {
+    public void drawLevelChanging(Graphics graphics, int level) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
         graphics.setColor(Color.BLACK);
         graphics.fillRect(0, 0, this.width * Game.scale_factor, this.height * Game.scale_factor);
         Font font = new Font("Hack", Font.PLAIN, 60);
@@ -141,7 +176,7 @@ public class Screen {
         graphic.drawString("Paused", 226, 322);
     }
 
-    public void drawGameWinning(Graphics graphics, int points) {
+    public void drawGameWinning(Graphics graphics, int points) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
         graphics.setColor(Color.BLACK);
         graphics.fillRect(0, 0, this.width * Game.scale_factor, this.height * Game.scale_factor);
 

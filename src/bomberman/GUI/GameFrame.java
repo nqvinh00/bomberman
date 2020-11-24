@@ -9,10 +9,10 @@ import java.awt.*;
 import java.io.IOException;
 
 public class GameFrame extends JFrame {
-    private Game game;
-    private GamePanel gamePanel;
-    private JPanel container;
-    private GameStatPanel gameStatPanel;
+    private final Game game;
+    private final GamePanel gamePanel;
+    private final JPanel container;
+    private final GameStatPanel gameStatPanel;
 
     public GameFrame() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
         this.setJMenuBar(new Menu(this));

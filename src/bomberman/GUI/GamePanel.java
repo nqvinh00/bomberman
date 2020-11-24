@@ -9,7 +9,7 @@ import java.awt.*;
 import java.io.IOException;
 
 public class GamePanel extends JPanel {
-    private Game game;
+    private final Game game;
 
     public GamePanel(GameFrame frame) throws IOException, LineUnavailableException, UnsupportedAudioFileException {
         this.setLayout(new BorderLayout());

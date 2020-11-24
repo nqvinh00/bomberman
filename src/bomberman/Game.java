@@ -18,15 +18,15 @@ import bomberman.Control.Input;
 
 public class Game extends Canvas {
     // Game components
-    private GameBoard gameBoard;
-    private Screen screen;
-    private GameFrame gameFrame;
-    private Input keyboard_input;
-    private Clip clip = AudioSystem.getClip();
+    private final GameBoard gameBoard;
+    private final Screen screen;
+    private final GameFrame gameFrame;
+    private final Input keyboard_input;
+    private final Clip clip = AudioSystem.getClip();
 
     // Game configs
     public static int boardsprite_size = 16;
-    public static int width = 247; // boardsprite_size * (31/2) - 1
+    public static int width = 247;
     public static int height = 208;
     public static int scale_factor = 3;
     public static String window_title = "Bomberman";
@@ -39,8 +39,8 @@ public class Game extends Canvas {
     public static int live = 3;
     private boolean running = false;
     private boolean paused = false;
-    private BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-    private int[] pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
+    private final BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+    private final int[] pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
 
     public Game(GameFrame gameFrame) throws IOException, LineUnavailableException, UnsupportedAudioFileException {
         this.gameFrame = gameFrame;
@@ -98,8 +98,6 @@ public class Game extends Canvas {
     }
 
     public void start() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
-        this.clip.start();
-        this.clip.loop(-1);
         this.running = true;
         long time = System.nanoTime();
         long timer = System.currentTimeMillis();
@@ -108,6 +106,8 @@ public class Game extends Canvas {
         int rate = 0; // calculate rate
         double deltaT = 0;
         this.requestFocus();
+        this.clip.start();
+        this.clip.loop(-1);
         while (this.running) {
             if (this.gameBoard.getLive() <= 0) {
                 this.clip.stop();

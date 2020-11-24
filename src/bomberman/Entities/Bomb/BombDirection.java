@@ -9,10 +9,10 @@ import bomberman.Entities.Character.Character;
 import java.io.IOException;
 
 public class BombDirection extends Entity {
-    private GameBoard board;
-    private int direction;
-    private int bombRange;
-    private BombExplosion[] explosions;
+    private final GameBoard board;
+    private final int direction;
+    private final int bombRange;
+    private final BombExplosion[] explosions;
 
     public BombDirection(int x, int y, int direction, int range, GameBoard board) throws IOException {
         this.x = x;

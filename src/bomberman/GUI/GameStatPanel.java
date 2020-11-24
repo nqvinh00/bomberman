@@ -5,9 +5,9 @@ import bomberman.Game;
 import java.awt.*;
 
 public class GameStatPanel extends JPanel {
-    private JLabel time;
-    private JLabel points;
-    private JLabel lives;
+    private final JLabel time;
+    private final JLabel points;
+    private final JLabel lives;
 
     public GameStatPanel(Game game) {
         this.setLayout(new GridLayout());

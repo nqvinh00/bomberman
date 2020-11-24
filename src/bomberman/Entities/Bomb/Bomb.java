@@ -12,7 +12,7 @@ import bomberman.Graphics.Sprite;
 import java.io.IOException;
 
 public class Bomb extends ActiveEntity {
-    private GameBoard board;
+    private final GameBoard board;
     private boolean exploded = false;
     private BombDirection[] directions = null;
     private boolean passed = true;

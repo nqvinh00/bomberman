@@ -35,8 +35,8 @@ public class Level {
         File file = new File(filePath);
         Scanner scanner = new Scanner(file);
         this.level = scanner.nextInt();
-        this.height = scanner.nextInt();;
-        this.width = scanner.nextInt();;
+        this.height = scanner.nextInt();
+        this.width = scanner.nextInt();
         this.lines = new String[this.height];
         scanner.nextLine();
         for (int i = 0; i < this.height; i++) {
