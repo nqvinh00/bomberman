@@ -130,4 +130,9 @@ public class Bomb extends ActiveEntity {
         }
         return null;
     }
+
+    @Override
+    public void playSound() {
+
+    }
 }

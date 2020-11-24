@@ -1,6 +1,9 @@
 package bomberman.GUI;
 
 import bomberman.Game;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
@@ -11,7 +14,7 @@ public class GameFrame extends JFrame {
     private JPanel container;
     private GameStatPanel gameStatPanel;
 
-    public GameFrame() throws IOException {
+    public GameFrame() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
         this.setJMenuBar(new Menu(this));
         this.container = new JPanel(new BorderLayout());
         this.gamePanel = new GamePanel(this);
@@ -28,12 +31,8 @@ public class GameFrame extends JFrame {
         this.game.start();
     }
 
-    public void newGame() throws IOException {
+    public void newGame() throws IOException, LineUnavailableException {
         this.game.getGameBoard().newGame();
-    }
-
-    public void changeLevel(int level) throws IOException {
-        this.game.getGameBoard().changeLevel(level);
     }
 
     public void pauseGame() {

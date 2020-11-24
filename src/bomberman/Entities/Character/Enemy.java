@@ -190,4 +190,9 @@ public abstract class Enemy extends Character {
         }
         return -1;
     }
+
+    @Override
+    public void playSound() {
+
+    }
 }

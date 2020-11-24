@@ -24,4 +24,5 @@ public class Minvo extends Enemy {
     public int findBomber() {
         return 0;
     }
+
 }

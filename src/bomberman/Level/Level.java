@@ -14,6 +14,7 @@ import bomberman.GameBoard;
 import bomberman.Graphics.Screen;
 import bomberman.Graphics.Sprite;
 
+import javax.sound.sampled.LineUnavailableException;
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
@@ -44,7 +45,7 @@ public class Level {
         scanner.close();
     }
 
-    public void createEntities() {
+    public void createEntities() throws LineUnavailableException {
         for (int i = 0; i < this.height; i++) {
             for (int j = 0; j < this.width; j++) {
                 this.addEntity(j, i, lines[i].charAt(j));
@@ -52,7 +53,7 @@ public class Level {
         }
     }
 
-    public void addEntity(int x, int y, char c) {
+    public void addEntity(int x, int y, char c) throws LineUnavailableException {
         int position = x + y * this.width;
         Layer layer;
         switch (c) {

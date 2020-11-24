@@ -12,7 +12,12 @@ import bomberman.Control.Input;
 import bomberman.Level.Level;
 import bomberman.Entities.Character.Character;
 
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -24,13 +29,13 @@ public class GameBoard implements Render {
     public Entity[] entities;
     public ArrayList<Character> characters = new ArrayList<Character>();
     protected ArrayList<Bomb> bombs = new ArrayList<Bomb>();
-//    1: game over 2: level change 3: paused
+//    1: game over 2: level change 3: paused 4: game win
     private int screenNum = -1;
     private int time = Game.time;
     private int point = Game.point;
     private int live = Game.live;
 
-    public GameBoard(Game gameplay, Input keyboard_input, Screen screen) throws IOException {
+    public GameBoard(Game gameplay, Input keyboard_input, Screen screen) throws IOException, LineUnavailableException {
         this.gameplay = gameplay;
         this.keyboard_input = keyboard_input;
         this.screen = screen;
@@ -38,7 +43,7 @@ public class GameBoard implements Render {
     }
 
     @Override
-    public void update() throws IOException {
+    public void update() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
         if (this.gameplay.isPaused()) {
             return;
         }
@@ -105,7 +110,7 @@ public class GameBoard implements Render {
      * @param level_ level to change.
      * @throws IOException if file level.txt not found
      */
-    public void changeLevel(int level_) throws IOException {
+    public void changeLevel(int level_) throws IOException, LineUnavailableException {
         this.time = Game.time;
         this.screenNum = 2;
         Game.screen_delay = 2;
@@ -121,7 +126,7 @@ public class GameBoard implements Render {
      * create new game.
      * @throws IOException if file level.txt not found
      */
-    public void newGame() throws IOException {
+    public void newGame() throws IOException, LineUnavailableException {
         this.resetGameSettings();
         this.changeLevel(1);
     }
@@ -130,13 +135,15 @@ public class GameBoard implements Render {
      * draw game screen.
      * @param graphics object
      */
-    public void drawScreen(Graphics graphics) {
+    public void drawScreen(Graphics graphics) throws LineUnavailableException, IOException, UnsupportedAudioFileException {
         if (this.screenNum == 1) {
             this.screen.drawGameEnding(graphics, this.point);
         } else if (this.screenNum == 2) {
             this.screen.drawLevelChanging(graphics, this.level.getLevel());
         } else if (this.screenNum == 3) {
             this.screen.drawGamePausing(graphics);
+        } else if (this.screenNum == 4) {
+            this.screen.drawGameWinning(graphics, this.point);
         }
     }
 
@@ -144,7 +151,7 @@ public class GameBoard implements Render {
      * restart the current level in case time out and bomber cannot find the portal.
      * @throws IOException if file level.txt not found
      */
-    protected void levelEnd() throws IOException {
+    protected void levelEnd() throws IOException, LineUnavailableException {
         if (this.time <= 0) {
             this.restartLevel();
         }
@@ -163,7 +170,7 @@ public class GameBoard implements Render {
      * restart the current level in case time out and bomber cannot find the portal.
      * @throws IOException if file level.txt not found
      */
-    public void whenGameEnd() throws IOException {
+    public void whenGameEnd() throws IOException, LineUnavailableException {
         if (this.time <= 0) {
             this.restartLevel();
         }
@@ -197,7 +204,7 @@ public class GameBoard implements Render {
      * restart the current level/ while dead.
      * @throws IOException if file level.txt not found
      */
-    public void restartLevel() throws IOException {
+    public void restartLevel() throws IOException, LineUnavailableException {
         this.changeLevel(this.level.getLevel());
     }
 
@@ -205,18 +212,20 @@ public class GameBoard implements Render {
      * next level.
      * @throws IOException if file level.txt not found
      */
-    public void nextLevel() throws IOException {
+    public void nextLevel() throws IOException, LineUnavailableException {
         if (this.level.getLevel() == 5) {
-            this.gameEnd();
-            return;
+            this.screenNum = 4;
+            Game.screen_delay = 2;
+            this.gameplay.setPaused(true);
+        } else {
+            this.changeLevel(this.level.getLevel() + 1);
         }
-        this.changeLevel(this.level.getLevel() + 1);
     }
 
     /**
      * update entities animation.
      */
-    public void updateEntities() throws IOException {
+    public void updateEntities() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
         if (this.gameplay.isPaused()) {
             return;
         }
@@ -241,7 +250,7 @@ public class GameBoard implements Render {
     /**
      * update character animation.
      */
-    public void updateCharacters() throws IOException {
+    public void updateCharacters() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
         if (this.gameplay.isPaused()) {
             return;
         }
@@ -429,7 +438,7 @@ public class GameBoard implements Render {
         return entity;
     }
 
-    private void gameMasterMode() throws IOException {
+    private void gameMasterMode() throws IOException, LineUnavailableException {
         if (this.keyboard_input.f2) {
             this.resetGameSettings();
             this.changeLevel(2);
@@ -494,10 +503,6 @@ public class GameBoard implements Render {
 
     public void setPoint(int point) {
         this.point = point;
-    }
-
-    public ArrayList<Character> getCharacters() {
-        return this.characters;
     }
 
     public Game getGame() {

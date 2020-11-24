@@ -5,7 +5,13 @@ import bomberman.Entities.Entity;
 import bomberman.Game;
 import bomberman.GameBoard;
 
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 
 public class Screen {
@@ -99,29 +105,23 @@ public class Screen {
         return temp;
     }
 
-    public int[] positionToDraw(int width, int height, String s, FontMetrics fontMetrics) {
-        int[] result = new int[2];
-        result[0] = (width - fontMetrics.stringWidth(s)) / 2;
-        result[1] = fontMetrics.getAscent() + (height - (fontMetrics.getAscent() + fontMetrics.getDescent())) / 2;
-        return result;
-    }
-
-    public void drawGameEnding(Graphics graphics, int points) {
+    public void drawGameEnding(Graphics graphics, int points) throws LineUnavailableException, IOException, UnsupportedAudioFileException {
+        Clip clip = AudioSystem.getClip();
+        clip.open(AudioSystem.getAudioInputStream(new File("res/audio/game_over.wav")));
+        clip.start();
         graphics.setColor(Color.BLACK);
         graphics.fillRect(0, 0, this.width * Game.scale_factor, this.height * Game.scale_factor);
-        FontMetrics fontMetrics = graphics.getFontMetrics();
 
         Font font = new Font("Hack", Font.PLAIN, 60);
         graphics.setFont(font);
         graphics.setColor(Color.WHITE);
-        int[] result = positionToDraw(this.width * Game.scale_factor, this.height * Game.scale_factor, "Game over", fontMetrics);
-        graphics.drawString("Game Over", result[0], result[1]);
+        graphics.drawString("Game Over", 230, 270);
 
         font = new Font("Hack", Font.PLAIN, 30);
         graphics.setFont(font);
         graphics.setColor(Color.YELLOW);
-        result = positionToDraw(this.width * Game.scale_factor, this.height * Game.scale_factor, "Points: " + points, fontMetrics);
-        graphics.drawString("Points: " + points, result[0], result[1]);
+        graphics.drawString("Points: " + points, 290, 332);
+        clip.stop();
     }
 
     public void drawLevelChanging(Graphics graphics, int level) {
@@ -131,17 +131,29 @@ public class Screen {
         graphics.setFont(font);
         graphics.setColor(Color.WHITE);
         FontMetrics fontMetrics = graphics.getFontMetrics();
-        int[] result = positionToDraw(this.width * Game.scale_factor, this.height * Game.scale_factor, "Level: " + level, fontMetrics);
-        graphics.drawString("Level " + level, result[0], result[1]);
+        graphics.drawString("Level " + level, 226, 322);
     }
 
     public void drawGamePausing(Graphics graphic) {
         Font font = new Font("Hack", Font.PLAIN, 60);
         graphic.setFont(font);
         graphic.setColor(Color.WHITE);
-        FontMetrics fontMetrics = graphic.getFontMetrics();
-        int[] result = positionToDraw(this.width * Game.scale_factor, this.height * Game.scale_factor, "Paused", fontMetrics);
-        graphic.drawString("Paused", result[0], result[1]);
+        graphic.drawString("Paused", 226, 322);
+    }
+
+    public void drawGameWinning(Graphics graphics, int points) {
+        graphics.setColor(Color.BLACK);
+        graphics.fillRect(0, 0, this.width * Game.scale_factor, this.height * Game.scale_factor);
+
+        Font font = new Font("Hack", Font.PLAIN, 60);
+        graphics.setFont(font);
+        graphics.setColor(Color.WHITE);
+        graphics.drawString("Win", 320, 270);
+
+        font = new Font("Hack", Font.PLAIN, 30);
+        graphics.setFont(font);
+        graphics.setColor(Color.YELLOW);
+        graphics.drawString("Points: " + points, 270, 332);
     }
 
     public int getWidth() {

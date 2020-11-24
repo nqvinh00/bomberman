@@ -3,6 +3,8 @@ package bomberman.Entities;
 import bomberman.Entities.BoardSprite.Brick;
 import bomberman.Graphics.Screen;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,7 +27,7 @@ public class Layer extends Entity {
     }
 
     @Override
-    public void update() throws IOException {
+    public void update() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
         this.clearRemovedEntity();
         this.getLastEntity().update();
     }

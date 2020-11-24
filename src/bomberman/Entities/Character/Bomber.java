@@ -10,6 +10,10 @@ import bomberman.GameBoard;
 import bomberman.Graphics.Screen;
 import bomberman.Graphics.Sprite;
 
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -18,8 +22,9 @@ public class Bomber extends Character {
     protected Input keyboard_input;
     protected int bombPlaceDelay = 0;
     public static ArrayList<Item> items = new ArrayList<Item>();
+    private Clip clip = AudioSystem.getClip();
 
-    public Bomber(int x, int y, GameBoard board) {
+    public Bomber(int x, int y, GameBoard board) throws LineUnavailableException {
         super(x, y, board);
         this.bombs = board.getBombs();
         this.keyboard_input = board.getKeyboardInput();
@@ -27,7 +32,7 @@ public class Bomber extends Character {
     }
 
     @Override
-    public void update() throws IOException {
+    public void update() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
         if (!this.alive) {
             afterDead();
             return;
@@ -98,7 +103,7 @@ public class Bomber extends Character {
     }
 
     @Override
-    public void afterDead() throws IOException {
+    public void afterDead() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
         if (this.timeDead > 0) {
             --this.timeDead;
         } else {
@@ -235,4 +240,8 @@ public class Bomber extends Character {
         return used;
     }
 
+    @Override
+    public void playSound() {
+
+    }
 }

@@ -11,4 +11,6 @@ public abstract class ActiveEntity extends Entity {
             move_step = 0;
         }
     }
+
+    public abstract void playSound();
 }

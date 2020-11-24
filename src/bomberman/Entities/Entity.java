@@ -5,6 +5,8 @@ import bomberman.Graphics.Render;
 import bomberman.Graphics.Screen;
 import bomberman.Graphics.Sprite;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 
 public abstract class Entity implements Render{
@@ -15,7 +17,7 @@ public abstract class Entity implements Render{
     private boolean process = false;
 
     @Override
-    public abstract void update() throws IOException;
+    public abstract void update() throws IOException, LineUnavailableException, UnsupportedAudioFileException;
 
     @Override
     public abstract void render(Screen screen) throws IOException;
@@ -49,7 +51,6 @@ public abstract class Entity implements Render{
     public int getBoardSpriteY() {
         return (int) ((y - sprite.SIZE / 2) / Game.boardsprite_size);
     }
-
 
     public void setProcess(boolean process) {
         this.process = process;

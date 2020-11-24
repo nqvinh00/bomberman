@@ -2,10 +2,10 @@ package bomberman.Entities.BoardSprite;
 
 import bomberman.Entities.Character.Bomber;
 import bomberman.Entities.Entity;
-import bomberman.Game;
 import bomberman.GameBoard;
 import bomberman.Graphics.Sprite;
 
+import javax.sound.sampled.LineUnavailableException;
 import java.io.IOException;
 
 public class Portal extends BoardSprite {
@@ -22,7 +22,7 @@ public class Portal extends BoardSprite {
     }
 
     @Override
-    public void update() throws IOException {
+    public void update() throws IOException, LineUnavailableException {
         if (this.gameBoard.isNoEnemies() && Math.abs(gameBoard.getBomber().getX() - this.x * 16) <= 16 &&
                 Math.abs(gameBoard.getBomber().getY() - this.y * 16) <= 16) {
             this.gameBoard.nextLevel();

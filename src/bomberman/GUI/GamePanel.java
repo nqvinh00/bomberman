@@ -1,6 +1,9 @@
 package bomberman.GUI;
 
 import bomberman.Game;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
@@ -8,7 +11,7 @@ import java.io.IOException;
 public class GamePanel extends JPanel {
     private Game game;
 
-    public GamePanel(GameFrame frame) throws IOException {
+    public GamePanel(GameFrame frame) throws IOException, LineUnavailableException, UnsupportedAudioFileException {
         this.setLayout(new BorderLayout());
         this.setPreferredSize(new Dimension(Game.width * Game.scale_factor, Game.height * Game.scale_factor));
         this.game = new Game(frame);

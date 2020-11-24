@@ -21,4 +21,8 @@ public abstract class Item extends BoardSprite {
     public boolean isActived() {
         return this.active;
     }
+
+    public void playSound() {
+
+    }
 }

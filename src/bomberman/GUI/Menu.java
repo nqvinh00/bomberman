@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
+import javax.sound.sampled.LineUnavailableException;
 import javax.swing.*;
 
 public class Menu extends JMenuBar {
@@ -63,7 +64,7 @@ public class Menu extends JMenuBar {
             if (actionEvent.getActionCommand().equals("New game")) {
                 try {
                     frame.newGame();
-                } catch (IOException e) {
+                } catch (IOException | LineUnavailableException e) {
                     e.printStackTrace();
                 }
             }

@@ -5,6 +5,7 @@ import bomberman.Game;
 import bomberman.Graphics.Screen;
 import bomberman.Graphics.Sprite;
 
+import javax.sound.sampled.LineUnavailableException;
 import java.io.IOException;
 
 public abstract class BoardSprite extends Entity {
@@ -21,7 +22,7 @@ public abstract class BoardSprite extends Entity {
     }
 
     @Override
-    public void update() throws IOException {
+    public void update() throws IOException, LineUnavailableException {
 
     }
 

@@ -5,7 +5,12 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+import java.io.File;
 import java.io.IOException;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 import bomberman.Graphics.Screen;
 import bomberman.GUI.GameFrame;
@@ -17,6 +22,7 @@ public class Game extends Canvas {
     private Screen screen;
     private GameFrame gameFrame;
     private Input keyboard_input;
+    private Clip clip = AudioSystem.getClip();
 
     // Game configs
     public static int boardsprite_size = 16;
@@ -36,7 +42,7 @@ public class Game extends Canvas {
     private BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
     private int[] pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
 
-    public Game(GameFrame gameFrame) throws IOException {
+    public Game(GameFrame gameFrame) throws IOException, LineUnavailableException, UnsupportedAudioFileException {
         this.gameFrame = gameFrame;
         this.gameFrame.setTitle(window_title);
         this.keyboard_input = new Input();
@@ -44,6 +50,7 @@ public class Game extends Canvas {
         this.screen = new Screen(width, height);
         this.gameBoard = new GameBoard(this, keyboard_input, screen);
         this.addKeyListener(keyboard_input);
+        this.clip.open(AudioSystem.getAudioInputStream(new File("res/audio/bg.wav")));
     }
 
     public void render() throws IOException {
@@ -66,7 +73,7 @@ public class Game extends Canvas {
         buffer.show();
     }
 
-    public void renderScreen() {
+    public void renderScreen() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         BufferStrategy buffer = this.getBufferStrategy();
         if (buffer == null) {
             this.createBufferStrategy(3);
@@ -85,28 +92,33 @@ public class Game extends Canvas {
         paused = false;
     }
 
-    public void update() throws IOException {
+    public void update() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
         this.keyboard_input.update();
         this.gameBoard.update();
     }
 
-    public void start() throws IOException {
+    public void start() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
+        this.clip.start();
+        this.clip.loop(-1);
         this.running = true;
         long time = System.nanoTime();
         long timer = System.currentTimeMillis();
         double nano = 1000000000.0 / 60;
         int fps = 0; // calculate fps
         int rate = 0; // calculate rate
-        double deltat = 0;
+        double deltaT = 0;
         this.requestFocus();
         while (this.running) {
+            if (this.gameBoard.getLive() <= 0) {
+                this.clip.stop();
+            }
             long timeNow = System.nanoTime();
-            deltat += (timeNow - time) / nano;
+            deltaT += (timeNow - time) / nano;
             time = timeNow;
-            while (deltat >= 1) {
+            while (deltaT >= 1) {
                 this.update();
                 rate++;
-                deltat--;
+                deltaT--;
             }
 
             if (this.paused) {

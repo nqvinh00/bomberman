@@ -1,10 +1,7 @@
 package bomberman.Entities.Character;
 
-import bomberman.Game;
 import bomberman.GameBoard;
 import bomberman.Graphics.Sprite;
-
-import java.util.Random;
 
 public class Balloom extends Enemy {
 
