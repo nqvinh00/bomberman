@@ -102,12 +102,10 @@ public class Game extends Canvas {
         long time = System.nanoTime();
         long timer = System.currentTimeMillis();
         double nano = 1000000000.0 / 60;
-        int fps = 0; // calculate fps
-        int rate = 0; // calculate rate
         double deltaT = 0;
         this.requestFocus();
-        this.clip.start();
         this.clip.loop(-1);
+        this.gameFrame.setTitle(Game.window_title);
         while (this.running) {
             if (this.gameBoard.getLive() <= 0) {
                 this.clip.stop();
@@ -117,7 +115,6 @@ public class Game extends Canvas {
             time = timeNow;
             while (deltaT >= 1) {
                 this.update();
-                rate++;
                 deltaT--;
             }
 
@@ -131,7 +128,6 @@ public class Game extends Canvas {
                 this.render();
             }
 
-            fps++;
             if (System.currentTimeMillis() - timer > 1000) {
                 if (this.paused) {
                     this.gameFrame.setTime(this.gameBoard.getTime());
@@ -143,9 +139,6 @@ public class Game extends Canvas {
                 this.gameFrame.setPoints(this.gameBoard.getPoint());
                 this.gameFrame.setLives(Game.this.gameBoard.getLive());
                 timer += 1000;
-                this.gameFrame.setTitle(Game.window_title + " - " + rate + " rate - " + fps + " fps");
-                fps = 0;
-                rate = 0;
                 if (this.gameBoard.getScreenNum() == 2) {
                     --Game.screen_delay;
                 }

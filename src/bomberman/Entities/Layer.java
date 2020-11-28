@@ -7,7 +7,6 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Layer extends Entity {
     protected ArrayList<Entity> entities = new ArrayList<Entity>();

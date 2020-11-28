@@ -1,7 +1,6 @@
 package bomberman.Entities;
 
 import bomberman.Game;
-import bomberman.Graphics.Render;
 import bomberman.Graphics.Screen;
 import bomberman.Graphics.Sprite;
 
@@ -9,17 +8,15 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 
-public abstract class Entity implements Render{
+public abstract class Entity {
     protected double x;
     protected double y;
     protected boolean removed = false;
     protected Sprite sprite;
     private boolean process = false;
 
-    @Override
     public abstract void update() throws IOException, LineUnavailableException, UnsupportedAudioFileException;
 
-    @Override
     public abstract void render(Screen screen) throws IOException;
 
     public void remove() {

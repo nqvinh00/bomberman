@@ -195,4 +195,54 @@ public abstract class Enemy extends Character {
     public void playSound() {
 
     }
+
+    public int bombDetect(int x, int y) {
+        int x_ = this.getBoardSpriteX();
+        int y_ = this.getBoardSpriteY();
+
+        // row
+        if (y_ == y) {
+            if (x - x_ > 0 && x - x_ <= Game.bomb_range) {
+                return 1; // right
+            }
+
+            if (x - x_ < 0 && x - x_ >= Game.bomb_range) {
+                return 3; // left
+            }
+        }
+
+        // col
+        if (x_ == x) {
+            if (y - y_ > 0 && y - y_ <= Game.bomb_range) {
+                return 2; // up
+            }
+
+            if (y - y_ < 0 && y - y_ >= Game.bomb_range) {
+                return 0; // down
+            }
+        }
+
+        // top corner
+        if (y - y_ < 0 && y - y_ >= Game.bomb_range) {
+            if (x - x_ > 0 && x - x_ <= Game.bomb_range) {
+                return 12; // top right
+            }
+
+            if (x - x_ < 0 && x - x_ >= Game.bomb_range) {
+                return 32; // top left
+            }
+        }
+
+        // down corner
+        if (y - y_ < 0 && y - y_ >= Game.bomb_range) {
+            if (x - x_ > 0 && x - x_ <= Game.bomb_range) {
+                return 10; // down right
+            }
+
+            if (x - x_ < 0 && x - x_ >= Game.bomb_range) {
+                return 30; // down left
+            }
+        }
+        return -1;
+    }
 }

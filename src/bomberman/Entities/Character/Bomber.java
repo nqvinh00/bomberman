@@ -14,6 +14,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -216,8 +217,11 @@ public class Bomber extends Character {
         this.board.addBomb(new Bomb(x, y, this.board));
     }
 
-    public void whenPlaceBomb() {
+    public void whenPlaceBomb() throws LineUnavailableException, IOException, UnsupportedAudioFileException {
         if (this.keyboard_input.space && Game.bomb_number > 0 && this.bombPlaceDelay < 0) {
+            Clip clip = AudioSystem.getClip();
+            clip.open(AudioSystem.getAudioInputStream(new File("res/audio/bomb_place.wav")));
+            clip.start();
             int x_ = (int) ((this.x + this.sprite.getSize() / 2) / Game.boardsprite_size);
             int y_ = (int) ((this.y + this.sprite.getSize() / 2 - this.sprite.getSize()) / Game.boardsprite_size);
             this.placeBomb(x_, y_);

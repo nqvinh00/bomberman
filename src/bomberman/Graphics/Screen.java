@@ -136,14 +136,8 @@ public class Screen {
      * draw game ending screen.
      * @param graphics param
      * @param points of bomber
-     * @throws LineUnavailableException if error occurs
-     * @throws IOException if error occurs
-     * @throws UnsupportedAudioFileException if error occurs
      */
-    public void drawGameEnding(Graphics graphics, int points) throws LineUnavailableException, IOException, UnsupportedAudioFileException {
-        Clip clip = AudioSystem.getClip();
-        clip.open(AudioSystem.getAudioInputStream(new File("res/audio/game_over.wav")));
-        clip.start();
+    public void drawGameEnding(Graphics graphics, int points) {
         graphics.setColor(Color.BLACK);
         graphics.fillRect(0, 0, this.width * Game.scale_factor, this.height * Game.scale_factor);
 
@@ -156,10 +150,9 @@ public class Screen {
         graphics.setFont(font);
         graphics.setColor(Color.YELLOW);
         graphics.drawString("Points: " + points, 290, 332);
-        clip.stop();
     }
 
-    public void drawLevelChanging(Graphics graphics, int level) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
+    public void drawLevelChanging(Graphics graphics, int level) {
         graphics.setColor(Color.BLACK);
         graphics.fillRect(0, 0, this.width * Game.scale_factor, this.height * Game.scale_factor);
         Font font = new Font("Hack", Font.PLAIN, 60);
@@ -176,7 +169,7 @@ public class Screen {
         graphic.drawString("Paused", 226, 322);
     }
 
-    public void drawGameWinning(Graphics graphics, int points) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
+    public void drawGameWinning(Graphics graphics, int points) {
         graphics.setColor(Color.BLACK);
         graphics.fillRect(0, 0, this.width * Game.scale_factor, this.height * Game.scale_factor);
 

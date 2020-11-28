@@ -6,18 +6,21 @@ import bomberman.Entities.Character.Bomber;
 import bomberman.Entities.Character.Enemy;
 import bomberman.Entities.Entity;
 import bomberman.Entities.Item.Item;
-import bomberman.Graphics.Render;
 import bomberman.Graphics.Screen;
 import bomberman.Control.Input;
 import bomberman.Level.Level;
 import bomberman.Entities.Character.Character;
+
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class GameBoard implements Render {
+public class GameBoard {
     protected Level level;
     protected Game gameplay;
     protected Input keyboard_input;
@@ -38,7 +41,6 @@ public class GameBoard implements Render {
         this.changeLevel(1);
     }
 
-    @Override
     public void update() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
         if (this.gameplay.isPaused()) {
             return;
@@ -70,7 +72,6 @@ public class GameBoard implements Render {
         this.gameMasterMode();
     }
 
-    @Override
     public void render(Screen screen) throws IOException {
         if (this.gameplay.isPaused()) {
             return;
