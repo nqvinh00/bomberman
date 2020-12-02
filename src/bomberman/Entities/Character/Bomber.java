@@ -89,13 +89,14 @@ public class Bomber extends Character {
     }
 
     @Override
-    public void dead() {
+    public void dead() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         if (!this.alive) {
             return;
         }
         this.alive = false;
         this.board.addLive(-1);
         this.clearUsedItems();
+        this.playSound("res/audio/dead.wav");
     }
 
     public void calculateDelta() {
@@ -119,7 +120,7 @@ public class Bomber extends Character {
     }
 
     @Override
-    protected void move(double deltaX, double deltaY) throws IOException {
+    protected void move(double deltaX, double deltaY) throws IOException, LineUnavailableException, UnsupportedAudioFileException {
         if (deltaY < 0) {
             this.direction = 0;
         }
@@ -151,7 +152,7 @@ public class Bomber extends Character {
     }
 
     @Override
-    protected void moveStep() throws IOException {
+    protected void moveStep() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
         int x_ = 0;
         int y_ = 0;
         if (this.keyboard_input.up) {
@@ -178,7 +179,7 @@ public class Bomber extends Character {
     }
 
     @Override
-    public boolean canMoveTo(double posX, double posY) throws IOException {
+    public boolean canMoveTo(double posX, double posY) throws IOException, LineUnavailableException, UnsupportedAudioFileException {
         for (int dir = 0; dir < 4; dir++) {
             double x_ = (this.x + posX + dir % 2 * 11) / Game.boardsprite_size;
             double y_ = (this.y + posY + dir / 2 * 12 - 13) / Game.boardsprite_size;
@@ -191,7 +192,7 @@ public class Bomber extends Character {
     }
 
     @Override
-    public boolean isCollided(Entity e) {
+    public boolean isCollided(Entity e) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         if (e instanceof BombDirection) {
             this.dead();
             return false;
@@ -219,11 +220,9 @@ public class Bomber extends Character {
 
     public void whenPlaceBomb() throws LineUnavailableException, IOException, UnsupportedAudioFileException {
         if (this.keyboard_input.space && Game.bomb_number > 0 && this.bombPlaceDelay < 0) {
-            Clip clip = AudioSystem.getClip();
-            clip.open(AudioSystem.getAudioInputStream(new File("res/audio/bomb_place.wav")));
-            clip.start();
             int x_ = (int) ((this.x + this.sprite.getSize() / 2) / Game.boardsprite_size);
             int y_ = (int) ((this.y + this.sprite.getSize() / 2 - this.sprite.getSize()) / Game.boardsprite_size);
+            this.playSound("res/audio/bomb_place.wav");
             this.placeBomb(x_, y_);
             Game.bomb_number--;
             this.bombPlaceDelay = 25;
@@ -231,13 +230,13 @@ public class Bomber extends Character {
     }
 
     public void clearUsedItems() {
-        items.removeIf(item -> !item.isActived());
+        items.removeIf(item -> item.isActived());
     }
 
     public ArrayList<Item> usedItems() {
         ArrayList<Item> used = new ArrayList<Item>();
         for (Item item: items) {
-            if (!item.isActived()) {
+            if (item.isActived()) {
                 used.add(item);
             }
         }
@@ -245,7 +244,9 @@ public class Bomber extends Character {
     }
 
     @Override
-    public void playSound() {
-
+    public void playSound(String filepath) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
+        Clip clip = AudioSystem.getClip();
+        clip.open(AudioSystem.getAudioInputStream(new File(filepath)));
+        clip.start();
     }
 }

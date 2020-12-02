@@ -6,6 +6,8 @@ import bomberman.GameBoard;
 import bomberman.Graphics.Screen;
 import bomberman.Entities.Character.Character;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 
 public class BombDirection extends Entity {
@@ -14,7 +16,8 @@ public class BombDirection extends Entity {
     private final int bombRange;
     private final BombExplosion[] explosions;
 
-    public BombDirection(int x, int y, int direction, int range, GameBoard board) throws IOException {
+    public BombDirection(int x, int y, int direction, int range, GameBoard board) throws IOException,
+            LineUnavailableException, UnsupportedAudioFileException {
         this.x = x;
         this.y = y;
         this.direction = direction;
@@ -25,7 +28,7 @@ public class BombDirection extends Entity {
     }
 
     @Override
-    public void update() throws IOException {
+    public void update() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
         for (BombExplosion bombExplosion: this.explosions) {
             Character character = this.board.getCharacterAtPos(bombExplosion.getX(), bombExplosion.getY());
             if (character != null) {
@@ -66,7 +69,7 @@ public class BombDirection extends Entity {
      * @return range
      * @throws IOException file not found
      */
-    public int calculateRealBombRange() throws IOException {
+    public int calculateRealBombRange() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
         int range_ = 0;
         int x_ = (int) x;
         int y_ = (int) y;
@@ -96,7 +99,7 @@ public class BombDirection extends Entity {
     /**
      * create explosions for the bomb.
      */
-    public void createExplosions() throws IOException {
+    public void createExplosions() {
         boolean isLastExplosion;
         int x_ = (int) this.x;
         int y_ = (int) this.y;

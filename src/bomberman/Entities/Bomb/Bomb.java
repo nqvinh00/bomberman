@@ -9,6 +9,11 @@ import bomberman.GameBoard;
 import bomberman.Graphics.Screen;
 import bomberman.Graphics.Sprite;
 
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.File;
 import java.io.IOException;
 
 public class Bomb extends ActiveEntity {
@@ -27,13 +32,14 @@ public class Bomb extends ActiveEntity {
     }
 
     @Override
-    public void update() throws IOException {
+    public void update() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
         if (this.explodedTime > 0) {
             this.explodedTime--;
         } else {
             if (!this.exploded) {
                 this.createExplosion();
             } else {
+                this.playSound("res/audio/explode.wav");
                 this.updateExplosion();
             }
 
@@ -84,7 +90,7 @@ public class Bomb extends ActiveEntity {
         }
     }
 
-    public void createExplosion() throws IOException {
+    public void createExplosion() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
         this.passed = true;
         this.exploded = true;
         Character character = this.board.getCharacterAtPos(x, y);
@@ -98,6 +104,7 @@ public class Bomb extends ActiveEntity {
             // i for direction parameter
             this.directions[i] = new BombDirection((int) this.x, (int) this.y, i, Game.bomb_range, this.board);
         }
+        this.passed = false;
     }
 
     public void explode() {
@@ -108,7 +115,7 @@ public class Bomb extends ActiveEntity {
         return this.exploded;
     }
 
-    public void updateExplosion() throws IOException {
+    public void updateExplosion() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
         for (BombDirection direction : this.directions) {
             direction.update();
         }
@@ -132,7 +139,9 @@ public class Bomb extends ActiveEntity {
     }
 
     @Override
-    public void playSound() {
-
+    public void playSound(String filepath) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
+        Clip clip = AudioSystem.getClip();
+        clip.open(AudioSystem.getAudioInputStream(new File(filepath)));
+        clip.start(); // bug after 3 or 4 time bomb exploded, not confirm yet
     }
 }

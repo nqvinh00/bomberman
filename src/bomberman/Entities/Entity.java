@@ -31,7 +31,7 @@ public abstract class Entity {
         return this.sprite;
     }
 
-    public abstract boolean isCollided(Entity e) throws IOException;
+    public abstract boolean isCollided(Entity e) throws IOException, UnsupportedAudioFileException, LineUnavailableException;
 
     public double getX() {
         return x;

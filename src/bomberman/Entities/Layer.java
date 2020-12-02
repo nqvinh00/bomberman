@@ -37,7 +37,7 @@ public class Layer extends Entity {
     }
 
     @Override
-    public boolean isCollided(Entity e) throws IOException {
+    public boolean isCollided(Entity e) throws IOException, LineUnavailableException, UnsupportedAudioFileException {
         return getLastEntity().isCollided(e);
     }
 

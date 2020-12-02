@@ -6,6 +6,7 @@ import bomberman.Graphics.Screen;
 import bomberman.Graphics.Sprite;
 
 import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 
 public abstract class BoardSprite extends Entity {
@@ -17,7 +18,7 @@ public abstract class BoardSprite extends Entity {
     }
 
     @Override
-    public boolean isCollided(Entity e) throws IOException {
+    public boolean isCollided(Entity e) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         return false;
     }
 

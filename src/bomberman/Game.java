@@ -73,7 +73,7 @@ public class Game extends Canvas {
         buffer.show();
     }
 
-    public void renderScreen() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+    public void renderScreen() {
         BufferStrategy buffer = this.getBufferStrategy();
         if (buffer == null) {
             this.createBufferStrategy(3);

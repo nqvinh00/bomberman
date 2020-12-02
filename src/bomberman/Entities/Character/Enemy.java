@@ -7,6 +7,8 @@ import bomberman.GameBoard;
 import bomberman.Graphics.Screen;
 import bomberman.Graphics.Sprite;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 import java.util.Random;
 
@@ -29,7 +31,7 @@ public abstract class Enemy extends Character {
     }
 
     @Override
-    public void update() throws IOException {
+    public void update() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
         activate();
         if (!this.alive) {
             afterDead();
@@ -61,7 +63,7 @@ public abstract class Enemy extends Character {
     }
 
     @Override
-    public boolean isCollided(Entity e) {
+    public boolean isCollided(Entity e) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         if (e instanceof BombExplosion) {
             dead();
             return false;
@@ -107,7 +109,7 @@ public abstract class Enemy extends Character {
     }
 
     @Override
-    protected void moveStep() throws IOException {
+    protected void moveStep() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
         int x_ = 0;
         int y_ = 0;
         if (this.moveStep <= 0) {
@@ -133,7 +135,7 @@ public abstract class Enemy extends Character {
     }
 
     @Override
-    public boolean canMoveTo(double posX, double posY) throws IOException {
+    public boolean canMoveTo(double posX, double posY) throws IOException, LineUnavailableException, UnsupportedAudioFileException {
         double x_ = this.x;
         double y_ = this.y - 16;
 
@@ -192,7 +194,7 @@ public abstract class Enemy extends Character {
     }
 
     @Override
-    public void playSound() {
+    public void playSound(String filepath) {
 
     }
 

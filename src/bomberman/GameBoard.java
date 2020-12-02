@@ -132,7 +132,7 @@ public class GameBoard {
      * draw game screen.
      * @param graphics object
      */
-    public void drawScreen(Graphics graphics) throws LineUnavailableException, IOException, UnsupportedAudioFileException {
+    public void drawScreen(Graphics graphics) {
         if (this.screenNum == 1) {
             this.screen.drawGameEnding(graphics, this.point);
         } else if (this.screenNum == 2) {
@@ -262,7 +262,7 @@ public class GameBoard {
     /**
      * update bombs animation.
      */
-    public void updateBombs() throws IOException {
+    public void updateBombs() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
         if (this.gameplay.isPaused()) {
             return;
         }
@@ -435,7 +435,7 @@ public class GameBoard {
         return entity;
     }
 
-    private void gameMasterMode() throws IOException, LineUnavailableException {
+    private void gameMasterMode() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
         if (this.keyboard_input.f2) {
             this.resetGameSettings();
             this.changeLevel(2);

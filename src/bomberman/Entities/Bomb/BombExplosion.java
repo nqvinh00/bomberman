@@ -5,6 +5,8 @@ import bomberman.Graphics.Screen;
 import bomberman.Graphics.Sprite;
 import bomberman.Entities.Character.Character;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 
 public class BombExplosion extends Entity {
@@ -55,7 +57,7 @@ public class BombExplosion extends Entity {
     }
 
     @Override
-    public boolean isCollided(Entity e) throws IOException {
+    public boolean isCollided(Entity e) throws IOException, LineUnavailableException, UnsupportedAudioFileException {
         if (e instanceof Character) {
             e.setProcess(true);
             ((Character) e).dead();

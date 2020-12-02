@@ -27,13 +27,13 @@ public abstract class Character extends ActiveEntity {
     @Override
     public abstract void render(Screen screen) throws IOException;
 
-    public abstract void dead() throws IOException;
+    public abstract void dead() throws IOException, UnsupportedAudioFileException, LineUnavailableException;
 
     public abstract void afterDead() throws IOException, LineUnavailableException, UnsupportedAudioFileException;
 
-    protected abstract void move(double deltaX, double deltaY) throws IOException;
+    protected abstract void move(double deltaX, double deltaY) throws IOException, LineUnavailableException, UnsupportedAudioFileException;
 
-    protected abstract void moveStep() throws IOException;
+    protected abstract void moveStep() throws IOException, LineUnavailableException, UnsupportedAudioFileException;
 
     public boolean isAlive() {
         return this.alive;
@@ -43,7 +43,7 @@ public abstract class Character extends ActiveEntity {
         return this.moving;
     }
 
-    public abstract boolean canMoveTo(double posX, double posY) throws IOException;
+    public abstract boolean canMoveTo(double posX, double posY) throws IOException, UnsupportedAudioFileException, LineUnavailableException;
 
     public int getDirection() {
         return this.direction;

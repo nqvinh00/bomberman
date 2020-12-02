@@ -1,5 +1,9 @@
 package bomberman.Entities;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
+
 public abstract class ActiveEntity extends Entity {
     protected int move_step = 0;
     protected final int MAX = 5000;
@@ -12,5 +16,5 @@ public abstract class ActiveEntity extends Entity {
         }
     }
 
-    public abstract void playSound();
+    public abstract void playSound(String filepath) throws LineUnavailableException, IOException, UnsupportedAudioFileException;
 }
