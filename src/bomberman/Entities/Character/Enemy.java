@@ -63,7 +63,7 @@ public abstract class Enemy extends Character {
     }
 
     @Override
-    public boolean isCollided(Entity e) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+    public boolean isCollided(Entity e) {
         if (e instanceof BombExplosion) {
             dead();
             return false;
