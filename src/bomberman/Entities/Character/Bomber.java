@@ -21,7 +21,7 @@ public class Bomber extends Character {
     protected int bombPlaceDelay = 0;
     public static ArrayList<Item> items = new ArrayList<Item>();
 
-    public Bomber(int x, int y, GameBoard board) throws LineUnavailableException {
+    public Bomber(int x, int y, GameBoard board) {
         super(x, y, board);
         this.bombs = board.getBombs();
         this.keyboard_input = board.getKeyboardInput();
@@ -191,7 +191,7 @@ public class Bomber extends Character {
     }
 
     @Override
-    public boolean isCollided(Entity e) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+    public boolean isCollided(Entity e) {
         if (e instanceof BombDirection) {
             this.dead();
             return false;
