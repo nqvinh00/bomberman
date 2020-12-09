@@ -22,7 +22,6 @@ public class Screen {
     private final int defaultColor = 0xffff00ff; //RGBA
     public static int deltax = 0;
     public static int deltay = 0;
-    private Sound sound = new Sound();
 
     public Screen(int width, int height) {
         this.width = width;
