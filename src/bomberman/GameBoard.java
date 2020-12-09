@@ -10,6 +10,8 @@ import bomberman.Graphics.Screen;
 import bomberman.Control.Input;
 import bomberman.Level.Level;
 import bomberman.Entities.Character.Character;
+import bomberman.Sound.Sound;
+
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.awt.*;
@@ -113,6 +115,8 @@ public class GameBoard {
         this.level = new Level("res/levels/Level" + level_ + ".txt", this);
         this.entities = new Entity[this.level.getHeight() * this.level.getWidth()];
         this.level.createEntities();
+        Sound sound = new Sound();
+        sound.playSound("res/audio/level_change.wav");
     }
 
     /**
@@ -210,6 +214,8 @@ public class GameBoard {
             this.screenNum = 4;
             Game.screen_delay = 2;
             this.gameplay.setPaused(true);
+            Sound sound = new Sound();
+            sound.playSound("res/audio/win.wav");
         } else {
             this.changeLevel(this.level.getLevel() + 1);
         }
