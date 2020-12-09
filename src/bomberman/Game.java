@@ -7,10 +7,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import java.io.File;
 import java.io.IOException;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.sound.sampled.*;
 
 import bomberman.Graphics.Screen;
 import bomberman.GUI.GameFrame;
@@ -104,6 +101,8 @@ public class Game extends Canvas {
         double nano = 1000000000.0 / 60;
         double deltaT = 0;
         this.requestFocus();
+        FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+        gainControl.setValue(-35.0f);
         this.clip.loop(-1);
         this.gameFrame.setTitle(Game.window_title);
         while (this.running) {
