@@ -104,7 +104,8 @@ public class Menu extends JMenuBar {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
             if (actionEvent.getActionCommand().equals("Keyboard control")) {
-                JOptionPane.showMessageDialog(null, "Up, Down, Right, Left arrow button to move bomber.\nSpace button to place bomb.");
+                JOptionPane.showMessageDialog(null, "Up, Down, Right, Left arrow button to move "
+                        + "bomber.\nSpace button to place bomb.");
             }
 
             if (actionEvent.getActionCommand().equals("About")) {

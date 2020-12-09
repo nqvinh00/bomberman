@@ -4,6 +4,7 @@ import bomberman.Entities.Character.Bomber;
 import bomberman.Entities.Entity;
 import bomberman.Game;
 import bomberman.GameBoard;
+import bomberman.Sound.Sound;
 
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -21,6 +22,7 @@ public class Screen {
     private final int defaultColor = 0xffff00ff; //RGBA
     public static int deltax = 0;
     public static int deltay = 0;
+    private Sound sound = new Sound();
 
     public Screen(int width, int height) {
         this.width = width;

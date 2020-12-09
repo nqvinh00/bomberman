@@ -8,12 +8,8 @@ import bomberman.Game;
 import bomberman.GameBoard;
 import bomberman.Graphics.Screen;
 import bomberman.Graphics.Sprite;
-
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-import java.io.File;
 import java.io.IOException;
 
 public class Bomb extends ActiveEntity {
@@ -136,12 +132,5 @@ public class Bomb extends ActiveEntity {
             }
         }
         return null;
-    }
-
-    @Override
-    public void playSound(String filepath) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
-        Clip clip = AudioSystem.getClip();
-        clip.open(AudioSystem.getAudioInputStream(new File(filepath)));
-        clip.start(); // bug after 3 or 4 time bomb exploded, not confirm yet
     }
 }

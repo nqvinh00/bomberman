@@ -10,13 +10,9 @@ import bomberman.Graphics.Screen;
 import bomberman.Control.Input;
 import bomberman.Level.Level;
 import bomberman.Entities.Character.Character;
-
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.awt.*;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -505,4 +501,5 @@ public class GameBoard {
     public Game getGame() {
         return this.gameplay;
     }
+
 }

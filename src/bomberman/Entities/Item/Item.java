@@ -4,6 +4,7 @@ import bomberman.Entities.BoardSprite.BoardSprite;
 import bomberman.Entities.Character.Bomber;
 import bomberman.Entities.Entity;
 import bomberman.Graphics.Sprite;
+import bomberman.Sound.Sound;
 
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -15,6 +16,7 @@ import java.io.IOException;
 public abstract class Item extends BoardSprite {
     protected int level;
     protected boolean active = false;
+    private Sound sound = new Sound();
 
     public Item(int x, int y, Sprite sprite, int level) {
         super(x, y, sprite);
@@ -23,7 +25,7 @@ public abstract class Item extends BoardSprite {
 
     public boolean isCollided(Entity e) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         if (e instanceof Bomber) {
-            this.playSound();
+            this.sound.playSound("res/audio/powerup.wav");
             ((Bomber) e).addItem(this);
             this.remove();
             return true;
@@ -40,11 +42,5 @@ public abstract class Item extends BoardSprite {
 
     public boolean isActived() {
         return !this.active;
-    }
-
-    public void playSound() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
-        Clip clip = AudioSystem.getClip();
-        clip.open(AudioSystem.getAudioInputStream(new File("res/audio/powerup.wav")));
-        clip.start();
     }
 }
