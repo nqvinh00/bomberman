@@ -12,7 +12,6 @@ import java.util.Random;
 public class Brick extends BoardSprite {
     protected Sprite grass = Sprite.grass; // if object is destroyed, its position will be a grass
     protected boolean destroyed = false;
-    private final int max = 5000;
     private int animate = 0;
     private int disappear = 15;
 
@@ -56,7 +55,8 @@ public class Brick extends BoardSprite {
     @Override
     public void update() {
         if (this.destroyed) {
-            if (this.animate < this.max) {
+            int max = 5000;
+            if (this.animate < max) {
                 this.animate++;
             } else {
                 this.animate = 0;

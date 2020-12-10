@@ -12,7 +12,7 @@ public class Kondoria extends Enemy {
     public Kondoria(int x, int y, GameBoard board) {
         super(x, y, board, 300, Game.player_speed / 2, Sprite.kondoria_dead);
         this.sprite = Sprite.kondoria_right1;
-        this.direction = this.findBomber();
+        this.direction = this.findDirection();
     }
 
     @Override
@@ -26,7 +26,7 @@ public class Kondoria extends Enemy {
     }
 
     @Override
-    public int findBomber() {
+    public int findDirection() {
         boolean hasBomb = false;
         for (Bomb bomb: this.board.getBombs()) {
             int bombDetect = this.bombDetect(bomb.getBoardSpriteY(), bomb.getBoardSpriteY());
@@ -54,7 +54,7 @@ public class Kondoria extends Enemy {
             }
         }
 
-        return this.findDirection();
+        return new Random().nextInt(4);
     }
 
 

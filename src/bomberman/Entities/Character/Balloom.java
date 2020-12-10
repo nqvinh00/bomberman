@@ -20,9 +20,4 @@ public class Balloom extends Enemy {
                     this.move_step, 60);
         }
     }
-
-    @Override
-    public int findBomber() {
-        return 0;
-    }
 }

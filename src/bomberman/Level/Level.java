@@ -25,10 +25,12 @@ public class Level {
     protected int level;
     protected String[] lines;
     protected GameBoard gameBoard;
+    public static char[][] charMap;
 
     public Level(String filePath, GameBoard gameBoard) throws IOException {
         this.loadLevel(filePath);
         this.gameBoard = gameBoard;
+        charMap = new char[this.height][this.width];
     }
 
     public void loadLevel(String filePath) throws IOException {
@@ -45,15 +47,16 @@ public class Level {
         scanner.close();
     }
 
-    public void createEntities() throws LineUnavailableException {
+    public void createEntities() {
         for (int i = 0; i < this.height; i++) {
             for (int j = 0; j < this.width; j++) {
-                this.addEntity(j, i, lines[i].charAt(j));
+                charMap[i][j] = lines[i].charAt(j);
+                this.addEntity(j, i, charMap[i][j]);
             }
         }
     }
 
-    public void addEntity(int x, int y, char c) throws LineUnavailableException {
+    public void addEntity(int x, int y, char c) {
         int position = x + y * this.width;
         Layer layer;
         switch (c) {

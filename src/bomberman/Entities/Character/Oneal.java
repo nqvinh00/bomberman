@@ -3,14 +3,13 @@ package bomberman.Entities.Character;
 import bomberman.GameBoard;
 import bomberman.Graphics.Sprite;
 
-import java.util.Random;
-
 public class Oneal extends Enemy {
 
     public Oneal(int x, int y, GameBoard board) {
         super(x, y, board, 150, 2 * 1.0 / 3, Sprite.oneal_dead);
         this.sprite = Sprite.oneal_right1;
-        this.direction = this.findBomber();
+        this.direction = this.findDirection();
+        System.out.println(this.direction);
     }
 
     @Override
@@ -37,25 +36,7 @@ public class Oneal extends Enemy {
     }
 
     @Override
-    public int findBomber() {
-        if (this.board.getBomber() == null) {
-            this.findDirection();
-        }
-
-        if (new Random().nextInt(2) == 1) {
-            int row = this.bomberRowDirection();
-            if (row != -1) {
-                return row;
-            } else {
-                return this.bomberColDirection();
-            }
-        } else {
-            int col = this.bomberColDirection();
-            if (col != -1) {
-                return col;
-            } else {
-                return this.bomberRowDirection();
-            }
-        }
+    public int findDirection() {
+        return this.findBomberWithBFS();
     }
 }

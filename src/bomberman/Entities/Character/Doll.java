@@ -1,11 +1,9 @@
 package bomberman.Entities.Character;
 
 import bomberman.Entities.Bomb.Bomb;
-import bomberman.Game;
 import bomberman.GameBoard;
 import bomberman.Graphics.Sprite;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 public class Doll extends Enemy {
@@ -13,7 +11,7 @@ public class Doll extends Enemy {
     public Doll(int x, int y, GameBoard board) {
         super(x, y, board, 200, 1.0, Sprite.doll_dead);
         this.sprite = Sprite.doll_right1;
-        this.direction = this.findBomber();
+        this.direction = this.findDirection();
     }
 
     @Override
@@ -27,7 +25,7 @@ public class Doll extends Enemy {
     }
 
     @Override
-    public int findBomber() {
+    public int findDirection() {
         boolean hasBomb = false;
         for (Bomb bomb: this.board.getBombs()) {
             int bombDetect = this.bombDetect(bomb.getBoardSpriteY(), bomb.getBoardSpriteY());
@@ -55,6 +53,6 @@ public class Doll extends Enemy {
             }
         }
 
-        return this.findDirection();
+        return new Random().nextInt(4);
     }
 }

@@ -1,15 +1,20 @@
 package bomberman.Entities.Character;
 
+import bomberman.Entities.Bomb.Bomb;
 import bomberman.Entities.Bomb.BombExplosion;
 import bomberman.Entities.Entity;
 import bomberman.Game;
 import bomberman.GameBoard;
 import bomberman.Graphics.Screen;
 import bomberman.Graphics.Sprite;
+import bomberman.Level.Level;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Random;
 
 public abstract class Enemy extends Character {
@@ -173,8 +178,6 @@ public abstract class Enemy extends Character {
         return new Random().nextInt(4);
     }
 
-    public abstract int findBomber();
-
     public int bomberColDirection() {
         if (this.board.getBomber().getBoardSpriteX() < this.getBoardSpriteX()) {
             return 3;
@@ -191,11 +194,6 @@ public abstract class Enemy extends Character {
             return 2;
         }
         return -1;
-    }
-
-    @Override
-    public void playSound(String filepath) {
-
     }
 
     public int bombDetect(int x, int y) {
@@ -246,5 +244,173 @@ public abstract class Enemy extends Character {
             }
         }
         return -1;
+    }
+
+    public int findBomberWithBFS() {
+        ArrayList<Integer> path = new ArrayList<>();
+        int nodeNum = 31 * 13; // map range
+        int[][] nodeMatrix = new int[nodeNum][4];
+        int[][] vertexMatrix = new int[13][31];
+        int vertex = 1;
+        int bombRange = Game.bomb_range;
+        int enemyRealX = this.getBoardSpriteX();
+        int enemyRealY = this.getBoardSpriteY();
+        int bomberRealX = this.getBoardSpriteX();
+        int bomberRealY = this.getBoardSpriteY();
+
+        // generate vertexMatrix due to txt map, wall = 0, destroyable entity = (vertex num * -1), else = (vertex num)
+        for (int i = 0; i < 13; i++) {
+            for (int j = 0; j < 31; j++) {
+                if (Level.charMap[i][j] == '#') {
+                    vertexMatrix[i][j] = 0;
+                } else if (Level.charMap[i][j] == '*' || Level.charMap[i][j] == 'x' || Level.charMap[i][j] == 'b' ||
+                Level.charMap[i][j] == 'f' || Level.charMap[i][j] == 's' || Level.charMap[i][j] == 'r') {
+                    vertexMatrix[i][j] = vertex * -1;
+                    vertex++;
+                } else {
+                    vertexMatrix[i][j] = vertex;
+                    vertex++;
+                }
+            }
+        }
+
+        // update bomb position
+        for (int i = 0; i < this.board.getBombs().size(); i++) {
+            int bombRealX = this.board.getBombs().get(i).getBoardSpriteX();
+            int bombRealY = this.board.getBombs().get(i).getBoardSpriteY();
+
+            // if bomb, remove the vertex that pos
+            vertexMatrix[bombRealY][bombRealX] *= -1;
+            // remove vertex in bomb range
+            // on right
+//            for (int j = 1; j <= bombRange; j++) {
+//                if (vertexMatrix[bombRealY][bomberRealX + j] > 0 && bomberRealY != enemyRealY
+//                        && bomberRealX + j != enemyRealX) {
+//                    vertexMatrix[bombRealY][bomberRealX + j] *= -1;
+//                } else {
+//                    break;
+//                }
+//            }
+//
+//            //on left
+//            for (int j = 1; j <= bombRange; j++) {
+//                if (vertexMatrix[bombRealY][bomberRealX - j] > 0 && bomberRealY != enemyRealY
+//                        && bomberRealX - j != enemyRealX) {
+//                    vertexMatrix[bombRealY][bomberRealX - j] *= -1;
+//                } else {
+//                    break;
+//                }
+//            }
+//
+//            //above
+//            for (int j = 1; j <= bombRange; j++) {
+//                if (vertexMatrix[bombRealY - j][bomberRealX] > 0 && bomberRealY - j != enemyRealY
+//                        && bomberRealX != enemyRealX) {
+//                    vertexMatrix[bombRealY - j][bomberRealX] *= -1;
+//                } else {
+//                    break;
+//                }
+//            }
+//
+//            //under
+//            for (int j = 1; j <= bombRange; j++) {
+//                if (vertexMatrix[bombRealY + j][bomberRealX] > 0 && bomberRealY + j != enemyRealY
+//                        && bomberRealX != enemyRealX) {
+//                    vertexMatrix[bombRealY + j][bomberRealX] *= -1;
+//                } else {
+//                    break;
+//                }
+//            }
+        }
+
+        // update broken brick
+        // not implement yet
+
+        // vertexMatrix to nodeMatrix
+        for (int i = 1; i < 12; i++) {
+            for (int j = 1; j < 30; j++) {
+                if (vertexMatrix[i][j] > 0) {
+                    if (vertexMatrix[i][j - 1] > 0) {
+                        // node on the left
+                        nodeMatrix[vertexMatrix[i][j]][0] = vertexMatrix[i][j - 1];
+                    } else {
+                        // no node on the left
+                        nodeMatrix[vertexMatrix[i][j]][0] = 0;
+                    }
+
+                    if (vertexMatrix[i][j + 1] > 0) {
+                        // node on the right
+                        nodeMatrix[vertexMatrix[i][j]][1] = vertexMatrix[i][j + 1];
+                    } else {
+                        // no node on the right right
+                        nodeMatrix[vertexMatrix[i][j]][1] = 0;
+                    }
+
+                    if (vertexMatrix[i - 1][j] > 0) {
+                        // node above
+                        nodeMatrix[vertexMatrix[i][j]][2] = vertexMatrix[i - 1][j];
+                    } else {
+                        // no node above
+                        nodeMatrix[vertexMatrix[i][j]][2] = 0;
+                    }
+
+                    if (vertexMatrix[i + 1][j] > 0) {
+                        // node under
+                        nodeMatrix[vertexMatrix[i][j]][3] = vertexMatrix[i + 1][j];
+                    } else {
+                        nodeMatrix[vertexMatrix[i][j]][3] = 0;
+                    }
+                }
+            }
+        }
+
+        Queue<Integer> node = new LinkedList<>();
+        int[] parNode = new int[vertex + 1]; //parent node
+        boolean[] visited = new boolean[vertex + 1]; //node visited or not
+        int start = vertexMatrix[this.getBoardSpriteY()][this.getBoardSpriteX()];
+        int end = vertexMatrix[this.board.getBomber().getBoardSpriteY()][this.board.getBomber().getBoardSpriteX()];
+        if (start < 0) {
+            start *= -1;
+        }
+
+        if (end < 0) {
+            end *= -1;
+        }
+
+        visited[start] = false;
+        parNode[start] = -1;
+        parNode[end] = -1;
+
+        node.add(start);
+        while (!node.isEmpty()) {
+            int currNode = node.poll();
+            for (int i = 0; i < 4; i++) {
+                if (!visited[nodeMatrix[currNode][i]] && nodeMatrix[currNode][i] != 0) {
+                    visited[nodeMatrix[currNode][i]] = true;
+                    parNode[nodeMatrix[currNode][i]] = currNode;
+                    node.add(nodeMatrix[currNode][i]);
+                }
+            }
+        }
+
+        int path_ = parNode[end];
+        int result;
+        if (path_ != -1) {
+            path.add(end);
+            path.add(path_);
+            while (path_ != start) {
+                path_ = parNode[path_];
+                path.add(path_);
+            }
+            result = path.get(path.size() - 2);
+        } else {
+            result = -1;
+        }
+
+        if (result - start == 1) return 1;
+        if (start - result == 1) return 3;
+        if (start > result) return 0;
+        if (start < result) return 2;
+        return new Random().nextInt(4);
     }
 }

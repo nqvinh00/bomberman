@@ -1,5 +1,6 @@
 package bomberman;
 
+import bomberman.Entities.BoardSprite.Brick;
 import bomberman.Entities.Bomb.Bomb;
 import bomberman.Entities.Bomb.BombExplosion;
 import bomberman.Entities.Character.Bomber;
