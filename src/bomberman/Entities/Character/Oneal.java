@@ -9,7 +9,6 @@ public class Oneal extends Enemy {
         super(x, y, board, 150, 2 * 1.0 / 3, Sprite.oneal_dead);
         this.sprite = Sprite.oneal_right1;
         this.direction = this.findDirection();
-        System.out.println(this.direction);
     }
 
     @Override

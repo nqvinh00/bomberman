@@ -1,5 +1,6 @@
 package bomberman.Entities.Character;
 
+import bomberman.Entities.BoardSprite.Brick;
 import bomberman.Entities.Bomb.Bomb;
 import bomberman.Entities.Bomb.BombExplosion;
 import bomberman.Entities.Entity;
@@ -253,10 +254,10 @@ public abstract class Enemy extends Character {
         int[][] vertexMatrix = new int[13][31];
         int vertex = 1;
         int bombRange = Game.bomb_range;
-        int enemyRealX = this.getBoardSpriteX();
-        int enemyRealY = this.getBoardSpriteY();
-        int bomberRealX = this.getBoardSpriteX();
-        int bomberRealY = this.getBoardSpriteY();
+        int enemyRealX = (int) this.x;
+        int enemyRealY = (int) this.y;
+        int bomberRealX = (int) this.board.getBomber().getX();
+        int bomberRealY = (int) this.board.getBomber().getY();
 
         // generate vertexMatrix due to txt map, wall = 0, destroyable entity = (vertex num * -1), else = (vertex num)
         for (int i = 0; i < 13; i++) {
@@ -276,55 +277,21 @@ public abstract class Enemy extends Character {
 
         // update bomb position
         for (int i = 0; i < this.board.getBombs().size(); i++) {
-            int bombRealX = this.board.getBombs().get(i).getBoardSpriteX();
-            int bombRealY = this.board.getBombs().get(i).getBoardSpriteY();
+            int bombRealX = (int) this.board.getBombs().get(i).getX();
+            int bombRealY = (int) this.board.getBombs().get(i).getY();
 
             // if bomb, remove the vertex that pos
             vertexMatrix[bombRealY][bombRealX] *= -1;
-            // remove vertex in bomb range
-            // on right
-//            for (int j = 1; j <= bombRange; j++) {
-//                if (vertexMatrix[bombRealY][bomberRealX + j] > 0 && bomberRealY != enemyRealY
-//                        && bomberRealX + j != enemyRealX) {
-//                    vertexMatrix[bombRealY][bomberRealX + j] *= -1;
-//                } else {
-//                    break;
-//                }
-//            }
-//
-//            //on left
-//            for (int j = 1; j <= bombRange; j++) {
-//                if (vertexMatrix[bombRealY][bomberRealX - j] > 0 && bomberRealY != enemyRealY
-//                        && bomberRealX - j != enemyRealX) {
-//                    vertexMatrix[bombRealY][bomberRealX - j] *= -1;
-//                } else {
-//                    break;
-//                }
-//            }
-//
-//            //above
-//            for (int j = 1; j <= bombRange; j++) {
-//                if (vertexMatrix[bombRealY - j][bomberRealX] > 0 && bomberRealY - j != enemyRealY
-//                        && bomberRealX != enemyRealX) {
-//                    vertexMatrix[bombRealY - j][bomberRealX] *= -1;
-//                } else {
-//                    break;
-//                }
-//            }
-//
-//            //under
-//            for (int j = 1; j <= bombRange; j++) {
-//                if (vertexMatrix[bombRealY + j][bomberRealX] > 0 && bomberRealY + j != enemyRealY
-//                        && bomberRealX != enemyRealX) {
-//                    vertexMatrix[bombRealY + j][bomberRealX] *= -1;
-//                } else {
-//                    break;
-//                }
-//            }
         }
 
         // update broken brick
-        // not implement yet
+        for (Brick brick: GameBoard.destroyedBrick) {
+            int x = (int) brick.getX();
+            int y = (int) brick.getY();
+            if (vertexMatrix[y][x] < 0) {
+                vertexMatrix[y][x] *= -1;
+            }
+        }
 
         // vertexMatrix to nodeMatrix
         for (int i = 1; i < 12; i++) {

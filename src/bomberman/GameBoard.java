@@ -17,6 +17,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.awt.*;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class GameBoard {
@@ -32,6 +33,7 @@ public class GameBoard {
     private int time = Game.time;
     private int point = Game.point;
     private int live = Game.live;
+    public static ArrayList<Brick> destroyedBrick;
 
     public GameBoard(Game gameplay, Input keyboard_input, Screen screen) throws IOException, LineUnavailableException {
         this.gameplay = gameplay;
@@ -67,7 +69,6 @@ public class GameBoard {
                 Game.bomb_number++;
             }
         }
-
         this.gameMasterMode();
     }
 
@@ -106,7 +107,7 @@ public class GameBoard {
      * @param level_ level to change.
      * @throws IOException if file level.txt not found
      */
-    public void changeLevel(int level_) throws IOException, LineUnavailableException {
+    public void changeLevel(int level_) throws IOException {
         this.time = Game.time;
         this.screenNum = 2;
         Game.screen_delay = 2;
@@ -118,13 +119,14 @@ public class GameBoard {
         this.level.createEntities();
         Sound sound = new Sound();
         sound.playSound("res/audio/level_change.wav");
+        destroyedBrick = new ArrayList<>();
     }
 
     /**
      * create new game.
      * @throws IOException if file level.txt not found
      */
-    public void newGame() throws IOException, LineUnavailableException {
+    public void newGame() throws IOException {
         this.resetGameSettings();
         this.changeLevel(1);
     }
@@ -149,7 +151,7 @@ public class GameBoard {
      * restart the current level in case time out and bomber cannot find the portal.
      * @throws IOException if file level.txt not found
      */
-    protected void levelEnd() throws IOException, LineUnavailableException {
+    protected void levelEnd() throws IOException {
         if (this.time <= 0) {
             this.restartLevel();
         }
@@ -168,7 +170,7 @@ public class GameBoard {
      * restart the current level in case time out and bomber cannot find the portal.
      * @throws IOException if file level.txt not found
      */
-    public void whenGameEnd() throws IOException, LineUnavailableException {
+    public void whenGameEnd() throws IOException {
         if (this.time <= 0) {
             this.restartLevel();
         }
@@ -202,7 +204,7 @@ public class GameBoard {
      * restart the current level/ while dead.
      * @throws IOException if file level.txt not found
      */
-    public void restartLevel() throws IOException, LineUnavailableException {
+    public void restartLevel() throws IOException {
         this.changeLevel(this.level.getLevel());
     }
 
@@ -210,7 +212,7 @@ public class GameBoard {
      * next level.
      * @throws IOException if file level.txt not found
      */
-    public void nextLevel() throws IOException, LineUnavailableException {
+    public void nextLevel() throws IOException {
         if (this.level.getLevel() == 5) {
             this.screenNum = 4;
             Game.screen_delay = 2;

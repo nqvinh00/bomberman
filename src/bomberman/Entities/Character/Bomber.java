@@ -241,4 +241,8 @@ public class Bomber extends Character {
         }
         return used;
     }
+
+		public ArrayList<Bomb> getBombs() {
+				return this.bombs;
+		}
 }

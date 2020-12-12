@@ -4,6 +4,7 @@ import bomberman.Entities.Bomb.BombDirection;
 import bomberman.Entities.Character.Kondoria;
 import bomberman.Entities.Entity;
 import bomberman.Game;
+import bomberman.GameBoard;
 import bomberman.Graphics.Screen;
 import bomberman.Graphics.Sprite;
 
@@ -43,6 +44,7 @@ public class Brick extends BoardSprite {
     public boolean isCollided(Entity e) {
         if (e instanceof BombDirection) {
             this.destroyed = true;
+            GameBoard.destroyedBrick.add(this);
         }
 
         return e instanceof Kondoria;
