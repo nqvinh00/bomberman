@@ -5,7 +5,7 @@ import java.awt.event.KeyListener;
 import java.security.Key;
 
 public class Input implements KeyListener {
-    private final boolean[] keys = new boolean[256];
+    private final boolean[] keys = new boolean[1000];
     public boolean up, down, right, left, space;
     // use in game master mode,
     public boolean f1, f2, f3, f4, f5, esc;
