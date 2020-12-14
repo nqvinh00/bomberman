@@ -89,6 +89,7 @@ public abstract class Enemy extends Character {
             return;
         }
         this.alive = false;
+        this.playSound("res/audio/enemy_dead.wav");
         this.board.setPoint(this.board.getPoint() + this.pointKill);
     }
 
