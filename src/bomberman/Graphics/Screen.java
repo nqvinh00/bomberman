@@ -4,15 +4,8 @@ import bomberman.Entities.Character.Bomber;
 import bomberman.Entities.Entity;
 import bomberman.Game;
 import bomberman.GameBoard;
-import bomberman.Sound.Sound;
 
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
 import java.util.Arrays;
 
 public class Screen {
@@ -159,7 +152,6 @@ public class Screen {
         Font font = new Font("Hack", Font.PLAIN, 60);
         graphics.setFont(font);
         graphics.setColor(Color.WHITE);
-        FontMetrics fontMetrics = graphics.getFontMetrics();
         graphics.drawString("Level " + level, 226, 322);
     }
 

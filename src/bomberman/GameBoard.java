@@ -17,7 +17,6 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.awt.*;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class GameBoard {
@@ -26,8 +25,8 @@ public class GameBoard {
     protected Input keyboard_input;
     protected Screen screen;
     public Entity[] entities;
-    public ArrayList<Character> characters = new ArrayList<Character>();
-    protected ArrayList<Bomb> bombs = new ArrayList<Bomb>();
+    public ArrayList<Character> characters = new ArrayList<>();
+    protected ArrayList<Bomb> bombs = new ArrayList<>();
 //    1: game over 2: level change 3: paused 4: game win
     private int screenNum = -1;
     private int time = Game.time;
@@ -420,7 +419,7 @@ public class GameBoard {
     }
 
     public Entity getEntity(double x, double y, Character character) {
-        Entity entity = null;
+        Entity entity;
         entity = getBombAtPos(x, y);
         if (entity != null) {
             return entity;

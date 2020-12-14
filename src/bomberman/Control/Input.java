@@ -2,7 +2,6 @@ package bomberman.Control;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.security.Key;
 
 public class Input implements KeyListener {
     private final boolean[] keys = new boolean[1000];

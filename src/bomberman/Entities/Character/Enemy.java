@@ -1,7 +1,6 @@
 package bomberman.Entities.Character;
 
 import bomberman.Entities.BoardSprite.Brick;
-import bomberman.Entities.Bomb.Bomb;
 import bomberman.Entities.Bomb.BombExplosion;
 import bomberman.Entities.Entity;
 import bomberman.Game;
@@ -254,11 +253,6 @@ public abstract class Enemy extends Character {
         int[][] nodeMatrix = new int[nodeNum][4];
         int[][] vertexMatrix = new int[13][31];
         int vertex = 1;
-        int bombRange = Game.bomb_range;
-        int enemyRealX = (int) this.x;
-        int enemyRealY = (int) this.y;
-        int bomberRealX = (int) this.board.getBomber().getX();
-        int bomberRealY = (int) this.board.getBomber().getY();
 
         // generate vertexMatrix due to txt map, wall = 0, destroyable entity = (vertex num * -1), else = (vertex num)
         for (int i = 0; i < 13; i++) {

@@ -19,7 +19,7 @@ public class Bomber extends Character {
     private final ArrayList<Bomb> bombs;
     protected Input keyboard_input;
     protected int bombPlaceDelay = 0;
-    public static ArrayList<Item> items = new ArrayList<Item>();
+    public static ArrayList<Item> items = new ArrayList<>();
 
     public Bomber(int x, int y, GameBoard board) {
         super(x, y, board);
@@ -104,7 +104,7 @@ public class Bomber extends Character {
     }
 
     @Override
-    public void afterDead() throws IOException, LineUnavailableException {
+    public void afterDead() throws IOException {
         if (this.timeDead > 0) {
             --this.timeDead;
         } else {

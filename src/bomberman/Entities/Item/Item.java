@@ -6,11 +6,8 @@ import bomberman.Entities.Entity;
 import bomberman.Graphics.Sprite;
 import bomberman.Sound.Sound;
 
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-import java.io.File;
 import java.io.IOException;
 
 public abstract class Item extends BoardSprite {
