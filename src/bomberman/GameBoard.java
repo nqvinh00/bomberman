@@ -257,7 +257,7 @@ public class GameBoard {
         }
 
         for (Character c: characters) {
-            if (!c.isProcess()) {
+            if (!c.isProcessed()) {
                 c.update();
             }
         }

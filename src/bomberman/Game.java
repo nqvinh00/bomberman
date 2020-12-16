@@ -39,6 +39,13 @@ public class Game extends Canvas {
     private final BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
     private final int[] pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
 
+    /**
+     * constructor.
+     * @param gameFrame game frame
+     * @throws IOException throw io exception
+     * @throws LineUnavailableException throw when line audio error
+     * @throws UnsupportedAudioFileException throw when audio type not supported
+     */
     public Game(GameFrame gameFrame) throws IOException, LineUnavailableException, UnsupportedAudioFileException {
         this.gameFrame = gameFrame;
         this.gameFrame.setTitle(window_title);
@@ -50,6 +57,10 @@ public class Game extends Canvas {
         this.clip.open(AudioSystem.getAudioInputStream(new File("res/audio/bg.wav")));
     }
 
+    /**
+     * render game play.
+     * @throws IOException throw io exception
+     */
     public void render() throws IOException {
         BufferStrategy buffer = this.getBufferStrategy();
         if (buffer == null) {
@@ -70,6 +81,9 @@ public class Game extends Canvas {
         buffer.show();
     }
 
+    /**
+     * render screen.
+     */
     public void renderScreen() {
         BufferStrategy buffer = this.getBufferStrategy();
         if (buffer == null) {
@@ -84,16 +98,31 @@ public class Game extends Canvas {
         buffer.show();
     }
 
+    /**
+     * run game.
+     */
     public void run() {
         running = true;
         paused = false;
     }
 
+    /**
+     * game loop.
+     * @throws IOException throw io exception
+     * @throws LineUnavailableException throw when line audio error
+     * @throws UnsupportedAudioFileException throw when audio type not supported
+     */
     public void update() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
         this.keyboard_input.update();
         this.gameBoard.update();
     }
 
+    /**
+     * start game play.
+     * @throws IOException throw io exception
+     * @throws LineUnavailableException throw when line audio error
+     * @throws UnsupportedAudioFileException throw when audio type not supported
+     */
     public void start() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
         this.running = true;
         long time = System.nanoTime();
@@ -145,18 +174,26 @@ public class Game extends Canvas {
         }
     }
 
+    /**
+     * get current game board.
+     * @return gameboard
+     */
     public GameBoard getGameBoard() {
         return this.gameBoard;
     }
 
-    public boolean isRunning() {
-        return this.running;
-    }
-
+    /**
+     * pause game.
+     * @param isPaused value
+     */
     public void setPaused(boolean isPaused) {
         this.paused = isPaused;
     }
 
+    /**
+     * check if game is paused or not.
+     * @return true/false
+     */
     public boolean isPaused() {
         return this.paused;
     }

@@ -11,6 +11,13 @@ import java.io.IOException;
 
 public class BombExplosion extends Entity {
 
+    /**
+     * constructor.
+     * @param x pos
+     * @param y pos
+     * @param direction bomb
+     * @param isLastExplosion of bomb
+     */
     public BombExplosion(int x, int y, int direction, boolean isLastExplosion) {
         this.x = x;
         this.y = y;

@@ -8,6 +8,12 @@ import java.util.Random;
 
 public class Doll extends Enemy {
 
+    /**
+     * constructor
+     * @param x pos
+     * @param y pos
+     * @param board game
+     */
     public Doll(int x, int y, GameBoard board) {
         super(x, y, board, 200, 1.0, Sprite.doll_dead);
         this.sprite = Sprite.doll_right1;

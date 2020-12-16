@@ -11,6 +11,13 @@ import java.io.IOException;
 public class GamePanel extends JPanel {
     private final Game game;
 
+    /**
+     * constructor.
+     * @param frame game frame
+     * @throws IOException throw io exception
+     * @throws LineUnavailableException throw when line audio error
+     * @throws UnsupportedAudioFileException throw when audio type not supported
+     */
     public GamePanel(GameFrame frame) throws IOException, LineUnavailableException, UnsupportedAudioFileException {
         this.setLayout(new BorderLayout());
         this.setPreferredSize(new Dimension(Game.width * Game.scale_factor, Game.height * Game.scale_factor));
@@ -21,12 +28,10 @@ public class GamePanel extends JPanel {
         this.setFocusable(true);
     }
 
-    public void resize() {
-        this.setPreferredSize(new Dimension(Game.width * Game.scale_factor, Game.height * Game.scale_factor));
-        this.revalidate();
-        this.repaint();
-    }
-
+    /**
+     * get current gameplay.
+     * @return Game
+     */
     public Game getGame() {
         return this.game;
     }

@@ -16,6 +16,11 @@ public class Screen {
     public static int deltax = 0;
     public static int deltay = 0;
 
+    /**
+     * constructor.
+     * @param width value
+     * @param height value
+     */
     public Screen(int width, int height) {
         this.width = width;
         this.height = height;
@@ -23,7 +28,7 @@ public class Screen {
     }
 
     /**
-     * fill all pixels with 0 to clear map
+     * fill all pixels with 0 to clear map.
      */
     public void clear() {
         Arrays.fill(pixels, 0);
@@ -146,6 +151,11 @@ public class Screen {
         graphics.drawString("Points: " + points, 290, 332);
     }
 
+    /**
+     * draw level changing screen.
+     * @param graphics param
+     * @param level of bomber
+     */
     public void drawLevelChanging(Graphics graphics, int level) {
         graphics.setColor(Color.BLACK);
         graphics.fillRect(0, 0, this.width * Game.scale_factor, this.height * Game.scale_factor);
@@ -155,6 +165,10 @@ public class Screen {
         graphics.drawString("Level " + level, 226, 322);
     }
 
+    /**
+     * draw game pause
+     * @param graphic param
+     */
     public void drawGamePausing(Graphics graphic) {
         Font font = new Font("Hack", Font.PLAIN, 60);
         graphic.setFont(font);
@@ -162,6 +176,11 @@ public class Screen {
         graphic.drawString("Paused", 226, 322);
     }
 
+    /**
+     * draw game winning screen.
+     * @param graphics param
+     * @param points of bomber
+     */
     public void drawGameWinning(Graphics graphics, int points) {
         graphics.setColor(Color.BLACK);
         graphics.fillRect(0, 0, this.width * Game.scale_factor, this.height * Game.scale_factor);
@@ -177,10 +196,18 @@ public class Screen {
         graphics.drawString("Points: " + points, 270, 332);
     }
 
+    /**
+     * width getter.
+     * @return screen width
+     */
     public int getWidth() {
         return this.width;
     }
 
+    /**
+     * height getter.
+     * @return screen height
+     */
     public int getHeight() {
         return this.height;
     }

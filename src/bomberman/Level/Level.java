@@ -26,12 +26,23 @@ public class Level {
     protected GameBoard gameBoard;
     public static char[][] charMap;
 
+    /**
+     * constructor.
+     * @param filePath of file level
+     * @param gameBoard param
+     * @throws IOException throw io exception
+     */
     public Level(String filePath, GameBoard gameBoard) throws IOException {
         this.loadLevel(filePath);
         this.gameBoard = gameBoard;
         charMap = new char[this.height][this.width];
     }
 
+    /**
+     * read file level to generate map level.
+     * @param filePath of file level
+     * @throws IOException throw io exception
+     */
     public void loadLevel(String filePath) throws IOException {
         File file = new File(filePath);
         Scanner scanner = new Scanner(file);
@@ -46,6 +57,9 @@ public class Level {
         scanner.close();
     }
 
+    /**
+     * create entities at pos by char in file level.
+     */
     public void createEntities() {
         for (int i = 0; i < this.height; i++) {
             for (int j = 0; j < this.width; j++) {
@@ -55,6 +69,12 @@ public class Level {
         }
     }
 
+    /**
+     * add entity and layer entities with char and pos.
+     * @param x pos
+     * @param y pos
+     * @param c char
+     */
     public void addEntity(int x, int y, char c) {
         int position = x + y * this.width;
         Layer layer;
@@ -139,14 +159,26 @@ public class Level {
         }
     }
 
+    /**
+     * get current level.
+     * @return level
+     */
     public int getLevel() {
         return this.level;
     }
 
+    /**
+     * width getter.
+     * @return width defines in  file level
+     */
     public int getWidth() {
         return this.width;
     }
 
+    /**
+     * height getter.
+     * @return height defines in  file level
+     */
     public int getHeight() {
         return this.height;
     }

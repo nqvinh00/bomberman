@@ -11,9 +11,15 @@ import java.util.ArrayList;
 public class Layer extends Entity {
     protected ArrayList<Entity> entities = new ArrayList<Entity>();
 
-    public Layer(int _x, int _y, Entity ... entities) {
-        x = _x;
-        y = _y;
+    /**
+     * constructor.
+     * @param x pos
+     * @param y pos
+     * @param entities a set of entities
+     */
+    public Layer(int x, int y, Entity ... entities) {
+        this.x = x;
+        this.y = y;
 
         for (int i = 0; i < entities.length; i++) {
             this.entities.add(entities[i]);
@@ -41,10 +47,17 @@ public class Layer extends Entity {
         return getLastEntity().isCollided(e);
     }
 
+    /**
+     * get last entity in layer = layer on top.
+     * @return entity
+     */
     public Entity getLastEntity() {
         return this.entities.get(entities.size() - 1);
     }
 
+    /**
+     * clear removed entity which is destroyed.
+     */
     public void clearRemovedEntity() {
         Entity last = this.getLastEntity();
         if (last.isRemoved()) {
@@ -52,6 +65,10 @@ public class Layer extends Entity {
         }
     }
 
+    /**
+     * add entity under top entity.
+     * @param e entity
+     */
     public void addEntityBeforeLast(Entity e) {
         this.entities.add(entities.size() - 1, e);
     }

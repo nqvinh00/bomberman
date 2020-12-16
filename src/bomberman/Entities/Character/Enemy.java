@@ -25,6 +25,15 @@ public abstract class Enemy extends Character {
     protected int animation = 30;
     protected Sprite deadSprite;
 
+    /**
+     * constructor.
+     * @param x pos
+     * @param y pos
+     * @param board game
+     * @param pointKill point add to bomber score
+     * @param speed enemy speed
+     * @param sprite of enemy
+     */
     public Enemy(int x, int y, GameBoard board, int pointKill, double speed, Sprite sprite) {
         super(x, y, board);
         this.pointKill = pointKill;
@@ -44,7 +53,8 @@ public abstract class Enemy extends Character {
         }
         Bomber bomber = this.board.getBomber();
         if (bomber != null) {
-            if (Math.abs((int) bomber.getX() - (int) this.x) <= 10 && Math.abs((int) bomber.getY() - (int) this.y) <= 10) {
+            if (Math.abs((int) bomber.getX() - (int) this.x) <= 10 && Math.abs((int) bomber.getY() -
+                    (int) this.y) <= 10) {
                 bomber.setProcess(true);
                 this.isCollided(bomber);
             }
@@ -61,7 +71,8 @@ public abstract class Enemy extends Character {
                 this.sprite = this.deadSprite;
                 this.move_step = 0;
             } else {
-                this.sprite = Sprite.movingSprite(Sprite.mob_dead1, Sprite.mob_dead2, Sprite.mob_dead3, this.move_step, 45);
+                this.sprite = Sprite.movingSprite(Sprite.mob_dead1, Sprite.mob_dead2, Sprite.mob_dead3,
+                        this.move_step, 45);
             }
         }
         screen.renderEntity((int) this.x, (int) this.y - this.sprite.getSize(), this);
@@ -141,7 +152,8 @@ public abstract class Enemy extends Character {
     }
 
     @Override
-    public boolean canMoveTo(double posX, double posY) throws IOException, LineUnavailableException, UnsupportedAudioFileException {
+    public boolean canMoveTo(double posX, double posY) throws IOException, LineUnavailableException,
+            UnsupportedAudioFileException {
         double x_ = this.x;
         double y_ = this.y - 16;
 
@@ -169,6 +181,9 @@ public abstract class Enemy extends Character {
         return entity.isCollided(this);
     }
 
+    /**
+     * select sprite while move.
+     */
     public abstract void selectSprite();
 
     /**
@@ -179,6 +194,10 @@ public abstract class Enemy extends Character {
         return new Random().nextInt(4);
     }
 
+    /**
+     * get bomb direction in col of matrix map.
+     * @return direction
+     */
     public int bomberColDirection() {
         if (this.board.getBomber().getBoardSpriteX() < this.getBoardSpriteX()) {
             return 3;
@@ -188,6 +207,10 @@ public abstract class Enemy extends Character {
         return -1;
     }
 
+    /**
+     * get bomb direction in row of matrix map.
+     * @return direction
+     */
     public int bomberRowDirection() {
         if (this.board.getBomber().getBoardSpriteY() < this.getBoardSpriteY()) {
             return 0;
@@ -197,6 +220,12 @@ public abstract class Enemy extends Character {
         return -1;
     }
 
+    /**
+     * check if bomb in range.
+     * @param x pos
+     * @param y pos
+     * @return position of bomb if exist
+     */
     public int bombDetect(int x, int y) {
         int x_ = this.getBoardSpriteX();
         int y_ = this.getBoardSpriteY();
@@ -247,6 +276,10 @@ public abstract class Enemy extends Character {
         return -1;
     }
 
+    /**
+     * use bfs algorithm to track bomber.
+     * @return direction
+     */
     public int findBomberWithBFS() {
         ArrayList<Integer> path = new ArrayList<>();
         int nodeNum = 31 * 13; // map range

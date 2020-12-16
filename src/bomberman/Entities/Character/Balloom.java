@@ -5,6 +5,12 @@ import bomberman.Graphics.Sprite;
 
 public class Balloom extends Enemy {
 
+    /**
+     * constructor
+     * @param x pos
+     * @param y pos
+     * @param board game
+     */
     public Balloom(int x, int y, GameBoard board) {
         super(x, y, board, 100, 1.0 / 2, Sprite.balloom_dead);
         this.sprite = Sprite.balloom_right1;

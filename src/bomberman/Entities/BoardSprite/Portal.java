@@ -11,6 +11,13 @@ import java.io.IOException;
 public class Portal extends BoardSprite {
     protected GameBoard gameBoard;
 
+    /**
+     * constructor.
+     * @param x pos
+     * @param y pos
+     * @param sprite portal
+     * @param gameBoard of game
+     */
     public Portal(int x, int y, Sprite sprite, GameBoard gameBoard) {
         super(x, y, sprite);
         this.gameBoard = gameBoard;

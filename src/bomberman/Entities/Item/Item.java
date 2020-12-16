@@ -15,11 +15,19 @@ public abstract class Item extends BoardSprite {
     protected boolean active = false;
     private Sound sound = new Sound();
 
+    /**
+     * constructor.
+     * @param x pos
+     * @param y pos
+     * @param sprite of item
+     * @param level current level
+     */
     public Item(int x, int y, Sprite sprite, int level) {
         super(x, y, sprite);
         this.level = level;
     }
 
+    @Override
     public boolean isCollided(Entity e) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         if (e instanceof Bomber) {
             this.sound.playSound("res/audio/powerup.wav");
@@ -31,13 +39,24 @@ public abstract class Item extends BoardSprite {
         return false;
     }
 
+    /**
+     * set value like bomb range, of bomber speed for item when collided.
+     */
     public abstract void setValue();
 
+    /**
+     * get current level.
+     * @return level
+     */
     public int getLevel() {
         return this.level;
     }
 
-    public boolean isActived() {
+    /**
+     * check if item is activated of not.
+     * @return true/false
+     */
+    public boolean isActivated() {
         return !this.active;
     }
 }

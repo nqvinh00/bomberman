@@ -20,6 +20,12 @@ public class Bomb extends ActiveEntity {
     private double explodedTime = 100;
     public int explosionDisappear = 20;
 
+    /**
+     * constructor.
+     * @param x pos
+     * @param y pos
+     * @param board game
+     */
     public Bomb(int x, int y, GameBoard board) {
         this.x = x;
         this.y = y;
@@ -80,12 +86,22 @@ public class Bomb extends ActiveEntity {
         return false;
     }
 
+    /**
+     * render when bomb explodes.
+     * @param screen game
+     */
     public void renderExplosion(Screen screen) {
         for (BombDirection direction : this.directions) {
             direction.render(screen);
         }
     }
 
+    /**
+     * create explosion with bomb direction objects.
+     * @throws IOException throw io exception
+     * @throws LineUnavailableException throw when line audio error
+     * @throws UnsupportedAudioFileException throw when audio type not supported
+     */
     public void createExplosion() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
         this.passed = true;
         this.exploded = true;
@@ -103,20 +119,39 @@ public class Bomb extends ActiveEntity {
         this.passed = false;
     }
 
+    /**
+     * make bomb explode.
+     */
     public void explode() {
         this.explodedTime = 0;
     }
 
+    /**
+     * check if bomb is exploded or not.
+     * @return true/false
+     */
     public boolean isExploded() {
         return this.exploded;
     }
 
+    /**
+     * update bomb directions.
+     * @throws IOException throw io exception
+     * @throws LineUnavailableException throw when line audio error
+     * @throws UnsupportedAudioFileException throw when audio type not supported
+     */
     public void updateExplosion() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
         for (BombDirection direction : this.directions) {
             direction.update();
         }
     }
 
+    /**
+     * getter for bomb explosion.
+     * @param x pos
+     * @param y pos
+     * @return BombExplosion obj
+     */
     public BombExplosion getBombExplosionAtPos(int x, int y) {
         if (!this.exploded) {
             return null;

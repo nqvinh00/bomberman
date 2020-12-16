@@ -14,6 +14,10 @@ public class Menu extends JMenuBar {
     private final JMenu option = new JMenu("Options");
     private final JMenu help = new JMenu("Help");
 
+    /**
+     * constructor.
+     * @param frame game frame
+     */
     public Menu(GameFrame frame) {
         this.frame = frame;
 
@@ -55,6 +59,10 @@ public class Menu extends JMenuBar {
     static class GameMenuListener implements ActionListener {
         private final GameFrame frame;
 
+        /**
+         * constructor for game menu.
+         * @param frame game frame
+         */
         public GameMenuListener(GameFrame frame) {
             this.frame = frame;
         }
@@ -78,6 +86,10 @@ public class Menu extends JMenuBar {
     static class OptionMenuListener implements ActionListener {
         private final GameFrame frame;
 
+        /**
+         * constructor for option menu.
+         * @param frame game frame
+         */
         public OptionMenuListener(GameFrame frame) {
             this.frame = frame;
         }
@@ -97,6 +109,10 @@ public class Menu extends JMenuBar {
     static class HelpMenuListener implements ActionListener {
         private final GameFrame frame;
 
+        /**
+         * constructor for help menu.
+         * @param frame game frame
+         */
         public HelpMenuListener(GameFrame frame) {
             this.frame = frame;
         }

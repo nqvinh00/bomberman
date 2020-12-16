@@ -15,6 +15,17 @@ public class BombDirection extends Entity {
     private final int bombRange;
     private final BombExplosion[] explosions;
 
+    /**
+     * constructor.
+     * @param x pos
+     * @param y pos
+     * @param direction value
+     * @param range bomb
+     * @param board game
+     * @throws IOException throw io exception
+     * @throws LineUnavailableException throw when line audio error
+     * @throws UnsupportedAudioFileException throw when audio type not supported
+     */
     public BombDirection(int x, int y, int direction, int range, GameBoard board) throws IOException,
             LineUnavailableException, UnsupportedAudioFileException {
         this.x = x;

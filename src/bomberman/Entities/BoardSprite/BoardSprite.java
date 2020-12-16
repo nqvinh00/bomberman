@@ -11,6 +11,12 @@ import java.io.IOException;
 
 public abstract class BoardSprite extends Entity {
 
+    /**
+     * constructor.
+     * @param x pos
+     * @param y pos
+     * @param sprite target sprite
+     */
     public BoardSprite(int x, int y, Sprite sprite) {
         this.x = x;
         this.y = y;

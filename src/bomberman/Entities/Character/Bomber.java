@@ -21,6 +21,12 @@ public class Bomber extends Character {
     protected int bombPlaceDelay = 0;
     public static ArrayList<Item> items = new ArrayList<>();
 
+    /**
+     * constructor
+     * @param x pos
+     * @param y pos
+     * @param board game
+     */
     public Bomber(int x, int y, GameBoard board) {
         super(x, y, board);
         this.bombs = board.getBombs();
@@ -98,6 +104,9 @@ public class Bomber extends Character {
         }
     }
 
+    /**
+     * calculate delta value for screen to render.
+     */
     public void calculateDelta() {
         int delta = Screen.calculateDelta(this, this.board);
         Screen.setDelta(delta, 0);
@@ -205,6 +214,10 @@ public class Bomber extends Character {
         return true;
     }
 
+    /**
+     * add powerup item.
+     * @param item collided
+     */
     public void addItem(Item item) {
         if (!item.isRemoved()) {
             items.add(item);
@@ -213,10 +226,20 @@ public class Bomber extends Character {
         }
     }
 
+    /**
+     * add bomb to place.
+     * @param x pos
+     * @param y pos
+     */
     public void placeBomb(int x, int y) {
         this.board.addBomb(new Bomb(x, y, this.board));
     }
 
+    /**
+     * action occurs when bomb place.
+     * create bomb at bomber pos
+     * play bomb_place sound
+     */
     public void whenPlaceBomb() {
         if (this.keyboard_input.space && Game.bomb_number > 0 && this.bombPlaceDelay < 0) {
             int x_ = (int) ((this.x + this.sprite.getSize() / 2) / Game.boardsprite_size);
@@ -228,21 +251,10 @@ public class Bomber extends Character {
         }
     }
 
+    /**
+     * remove used items.
+     */
     public void clearUsedItems() {
-        items.removeIf(Item::isActived);
+        items.removeIf(Item::isActivated);
     }
-
-    public ArrayList<Item> usedItems() {
-        ArrayList<Item> used = new ArrayList<Item>();
-        for (Item item: items) {
-            if (item.isActived()) {
-                used.add(item);
-            }
-        }
-        return used;
-    }
-
-		public ArrayList<Bomb> getBombs() {
-				return this.bombs;
-		}
 }

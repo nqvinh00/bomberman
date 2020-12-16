@@ -16,6 +16,12 @@ public class Brick extends BoardSprite {
     private int animate = 0;
     private int disappear = 15;
 
+    /**
+     * constructor
+     * @param x pos
+     * @param y pos
+     * @param sprite brick
+     */
     public Brick(int x, int y, Sprite sprite) {
         super(x, y, sprite);
     }
@@ -50,6 +56,10 @@ public class Brick extends BoardSprite {
         return e instanceof Kondoria;
     }
 
+    /**
+     * add grass below.
+     * @param grass sprite
+     */
     public void addGrass(Sprite grass) {
         this.grass = grass;
     }
@@ -72,6 +82,10 @@ public class Brick extends BoardSprite {
         }
     }
 
+    /**
+     * check if brick is destroyed or not.
+     * @return true/false
+     */
     public boolean isDestroyed() {
         return this.destroyed;
     }

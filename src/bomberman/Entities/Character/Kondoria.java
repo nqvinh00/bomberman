@@ -9,6 +9,12 @@ import java.util.Random;
 
 public class Kondoria extends Enemy {
 
+    /**
+     * constructor
+     * @param x pos
+     * @param y pos
+     * @param board game
+     */
     public Kondoria(int x, int y, GameBoard board) {
         super(x, y, board, 300, Game.player_speed / 2, Sprite.kondoria_dead);
         this.sprite = Sprite.kondoria_right1;
@@ -56,6 +62,4 @@ public class Kondoria extends Enemy {
 
         return new Random().nextInt(4);
     }
-
-
 }

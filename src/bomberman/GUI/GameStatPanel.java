@@ -9,6 +9,10 @@ public class GameStatPanel extends JPanel {
     private final JLabel points;
     private final JLabel lives;
 
+    /**
+     * constructor.
+     * @param game gameplay
+     */
     public GameStatPanel(Game game) {
         this.setLayout(new GridLayout());
         this.time = new JLabel("Time: " + game.getGameBoard().getTime());
@@ -30,14 +34,26 @@ public class GameStatPanel extends JPanel {
         this.setPreferredSize(new Dimension(0, 40));
     }
 
+    /**
+     * set time text.
+     * @param time value
+     */
     public void setTime(int time) {
         this.time.setText("Time: " + time);
     }
 
+    /**
+     * set lives text.
+     * @param lives value
+     */
     public void setLives(int lives) {
         this.lives.setText("Lives: " + lives);
     }
 
+    /**
+     * set points text.
+     * @param points value.
+     */
     public void setPoints(int points) {
         this.points.setText("Points: " + points);
     }

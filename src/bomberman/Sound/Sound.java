@@ -4,6 +4,11 @@ import javax.sound.sampled.*;
 import java.io.File;
 
 public class Sound {
+
+    /**
+     * play sound effect.
+     * @param filepath of sound file
+     */
     public void playSound(String filepath) {
         new Thread(() -> {
             try {

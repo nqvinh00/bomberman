@@ -4,6 +4,13 @@ import bomberman.GameBoard;
 import bomberman.Graphics.Sprite;
 
 public class Minvo extends Enemy {
+
+    /**
+     * constructor
+     * @param x pos
+     * @param y pos
+     * @param board game
+     */
     public Minvo(int x, int y, GameBoard board) {
         super(x, y, board, 250, 1.0 * 1.5, Sprite.minvo_dead);
         this.sprite = Sprite.minvo_right1;

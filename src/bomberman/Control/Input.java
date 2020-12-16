@@ -9,6 +9,9 @@ public class Input implements KeyListener {
     // use in game master mode,
     public boolean f1, f2, f3, f4, f5, esc;
 
+    /**
+     * define movement and functional key.
+     */
     public void update() {
         this.up = keys[KeyEvent.VK_UP];
         this.down = keys[KeyEvent.VK_DOWN];

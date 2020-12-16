@@ -15,6 +15,12 @@ public abstract class Character extends ActiveEntity {
     protected int direction = -1;
     protected int timeDead = 45;
 
+    /**
+     * constructor
+     * @param x pos
+     * @param y pos
+     * @param board game
+     */
     public Character(int x, int y, GameBoard board) {
         this.x = x;
         this.y = y;
@@ -27,24 +33,65 @@ public abstract class Character extends ActiveEntity {
     @Override
     public abstract void render(Screen screen) throws IOException;
 
+    /**
+     * character dead.
+     * @throws IOException throw io exception
+     * @throws LineUnavailableException throw when line audio error
+     * @throws UnsupportedAudioFileException throw when audio type not supported
+     */
     public abstract void dead() throws IOException, UnsupportedAudioFileException, LineUnavailableException;
 
+    /**
+     * actions occur after character dead.
+     * @throws IOException throw io exception
+     * @throws LineUnavailableException throw when line audio error
+     * @throws UnsupportedAudioFileException throw when audio type not supported
+     */
     public abstract void afterDead() throws IOException, LineUnavailableException, UnsupportedAudioFileException;
 
-    protected abstract void move(double deltaX, double deltaY) throws IOException, LineUnavailableException, UnsupportedAudioFileException;
+    /**
+     * create moving animation.
+     * @param deltaX pos to move
+     * @param deltaY pos to move
+     * @throws IOException throw io exception
+     * @throws LineUnavailableException throw when line audio error
+     * @throws UnsupportedAudioFileException throw when audio type not supported
+     */
+    protected abstract void move(double deltaX, double deltaY) throws IOException, LineUnavailableException,
+            UnsupportedAudioFileException;
 
+    /**
+     * calculate move step.
+     * @throws IOException throw io exception
+     * @throws LineUnavailableException throw when line audio error
+     * @throws UnsupportedAudioFileException throw when audio type not supported
+     */
     protected abstract void moveStep() throws IOException, LineUnavailableException, UnsupportedAudioFileException;
 
+    /**
+     * check if character alive or dead.
+     * @return true/false
+     */
     public boolean isAlive() {
         return this.alive;
     }
 
-    public boolean isMoving() {
-        return this.moving;
-    }
+    /**
+     * check if character can move to specific position
+     * @param posX pos
+     * @param posY pos
+     * @return true/false
+     * @throws IOException throw io exception
+     * @throws LineUnavailableException throw when line audio error
+     * @throws UnsupportedAudioFileException throw when audio type not supported
+     */
+    public abstract boolean canMoveTo(double posX, double posY) throws IOException, UnsupportedAudioFileException,
+            LineUnavailableException;
 
-    public abstract boolean canMoveTo(double posX, double posY) throws IOException, UnsupportedAudioFileException, LineUnavailableException;
-
+    /**
+     * get character direction.
+     * @return direction
+     */
     public int getDirection() {
         return this.direction;
     }
