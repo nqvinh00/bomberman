@@ -34,13 +34,26 @@ public class GameBoard {
     private int live = Game.live;
     public static ArrayList<Brick> destroyedBrick;
 
-    public GameBoard(Game gameplay, Input keyboard_input, Screen screen) throws IOException, LineUnavailableException {
+    /**
+     * constructor.
+     * @param gameplay param
+     * @param keyboard_input param
+     * @param screen param
+     * @throws IOException throw when io error
+     */
+    public GameBoard(Game gameplay, Input keyboard_input, Screen screen) throws IOException {
         this.gameplay = gameplay;
         this.keyboard_input = keyboard_input;
         this.screen = screen;
         this.changeLevel(1);
     }
 
+    /**
+     * update game board.
+     * @throws IOException throw io exception
+     * @throws LineUnavailableException throw when line audio error
+     * @throws UnsupportedAudioFileException throw when audio type not supported
+     */
     public void update() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
         if (this.gameplay.isPaused()) {
             return;
@@ -71,6 +84,11 @@ public class GameBoard {
         this.gameMasterMode();
     }
 
+    /**
+     * render game board.
+     * @param screen param
+     * @throws IOException throw io exception
+     */
     public void render(Screen screen) throws IOException {
         if (this.gameplay.isPaused()) {
             return;
@@ -82,7 +100,8 @@ public class GameBoard {
         int y1 = (Screen.deltay + screen.getHeight()) / Game.boardsprite_size;
         for (int iy = y0 ; iy < y1; iy++) {
             for (int ix = x0; ix < x1; ix++) {
-                if (ix + iy * this.level.getWidth() != 403) this.entities[ix + iy * this.level.getWidth()].render(screen);
+                if (ix + iy * this.level.getWidth() != 403) this.entities[ix + 
+                        iy * this.level.getWidth()].render(screen);
             }
         }
         this.renderBombs(screen);
@@ -299,12 +318,21 @@ public class GameBoard {
         return n == 0;
     }
 
+    /**
+     * render bomb objs.
+     * @param screen param
+     */
     public void renderBombs(Screen screen) {
         for (Bomb b: this.bombs) {
             b.render(screen);
         }
     }
 
+    /**
+     * render character.
+     * @param screen param
+     * @throws IOException throw when io error
+     */
     public void renderChars(Screen screen) throws IOException {
         for (Character c: this.characters) {
             c.render(screen);
@@ -386,6 +414,10 @@ public class GameBoard {
         return null;
     }
 
+    /**
+     * get bomber.
+     * @return bomber
+     */
     public Bomber getBomber() {
         for (Character c: this.characters) {
             if (c instanceof Bomber) {
@@ -395,6 +427,12 @@ public class GameBoard {
         return null;
     }
 
+    /**
+     * get bomb at specific pos.
+     * @param x pos
+     * @param y pos
+     * @return Bomb
+     */
     public Bomb getBombAtPos(double x, double y) {
         for (Bomb b: this.bombs) {
             if (b.getX() == x && b.getY() == y) {
@@ -404,6 +442,12 @@ public class GameBoard {
         return null;
     }
 
+    /**
+     * get bomb explosion at specific pos.
+     * @param x pos
+     * @param y pos
+     * @return Bomb
+     */
     public BombExplosion getExplosionAt(int x, int y) {
         for (Bomb bomb: bombs) {
             BombExplosion bombExplosion = bomb.getBombExplosionAtPos(x, y);
@@ -414,10 +458,23 @@ public class GameBoard {
         return null;
     }
 
+    /**
+     * get entity at specific pos.
+     * @param x pos
+     * @param y pos
+     * @return entity
+     */
     public Entity getEntityAtPos(double x, double y) {
         return this.entities[(int) x + (int) y * this.level.getWidth()];
     }
 
+    /**
+     * implement on getEntityAtPos().
+     * @param x pos
+     * @param y pos
+     * @param character exclude
+     * @return entity
+     */
     public Entity getEntity(double x, double y, Character character) {
         Entity entity;
         entity = getBombAtPos(x, y);
@@ -439,6 +496,12 @@ public class GameBoard {
         return entity;
     }
 
+    /**
+     * use for game master.
+     * @throws IOException throw io exception
+     * @throws LineUnavailableException throw when line audio error
+     * @throws UnsupportedAudioFileException throw when audio type not supported
+     */
     private void gameMasterMode() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
         if (this.keyboard_input.f2) {
             this.resetGameSettings();
@@ -474,38 +537,74 @@ public class GameBoard {
         }
     }
 
+    /**
+     * get screen number.
+     * @return current screen num
+     */
     public int getScreenNum() {
         return this.screenNum;
     }
 
+    /**
+     * get level time.
+     * @return time
+     */
     public int getTime() {
         return this.time;
     }
 
+    /**
+     * get current points.
+     * @return point
+     */
     public int getPoint() {
         return this.point;
     }
 
+    /**
+     * get current bomber lives.
+     * @return lives
+     */
     public int getLive() {
         return this.live;
     }
 
+    /**
+     * game width.
+     * @return width
+     */
     public int getWidth() {
         return this.level.getWidth();
     }
 
+    /**
+     * game height.
+     * @return height
+     */
     public int getHeight() {
         return this.level.getHeight();
     }
 
+    /**
+     * set level time.
+     * @param time value
+     */
     public void setTime(int time) {
         this.time = time;
     }
 
+    /**
+     * set points for bomber.
+     * @param point value
+     */
     public void setPoint(int point) {
         this.point = point;
     }
 
+    /**
+     * get current game play.
+     * @return game
+     */
     public Game getGame() {
         return this.gameplay;
     }
